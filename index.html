@@ -283,13 +283,13 @@ function onbField(l,id,v,type="number",extra=""){return`<div class="field"><labe
 const sel=(id,opts,cur)=>`<select id="${id}">${opts.map((o,i)=>`<option value="${Array.isArray(o)?o[0]:i}" ${(Array.isArray(o)?o[0]:i)==cur?"selected":""}>${Array.isArray(o)?o[1]:o}</option>`).join("")}</select>`;
 function profForm(p={}){return`<div class="card"><h3 class="sec">Tus datos</h3><div class="grid2 keep" style="gap:0 10px">${onbField("Edad","pa",p.age)}${onbField("Peso (kg)","pw",p.w,"number",'step="0.1"')}${onbField("Altura (cm)","ph",p.h)}</div></div>
 <div class="card"><h3 class="sec">Tu entrenamiento</h3><div class="field"><label>Objetivo</label>${sel("pg",Object.entries(GOALS).map(([k,v])=>[k,v[0]]),p.goal||"tonificar")}</div>
-<div class="field"><label>Nivel</label>${sel("pl",LEVELS,p.level??0)}</div><div class="field"><label>Actividad actual</label>${sel("pc",ACTS,p.act??1)}</div>
+<div class="field"><label>Nivel</label>${sel("plv",LEVELS,p.level??0)}</div><div class="field"><label>Actividad actual</label>${sel("pc",ACTS,p.act??1)}</div>
 <div class="field"><label>Dónde entrenas</label>${sel("pp",[["casa","En casa"],["gym","En gimnasio"],["ambos","Ambos"]],p.place||"casa")}</div>
 <div class="grid2 keep" style="gap:0 10px"><div class="field"><label>Días por semana</label>${sel("pd",[[3,"3 días"],[4,"4 días"],[5,"5 días"],[6,"6 días"]],p.days||3)}</div></div></div>
 <div class="card"><h3 class="sec">Alimentación y cuidado</h3><div class="field"><label>Tipo de alimentación</label>${sel("pt",[["omni","Como de todo"],["veg","Vegetariana"]],p.diet||"omni")}</div>
 <div class="field"><label>Tipo de piel</label>${sel("ps",SKINS,p.skin??0)}</div>
 <button type="button" class="chk ${S.cyc.on?"on":""}" id="cycOpt" data-a="cycopt"><span class="ck">${S.cyc.on?ic("check"):""}</span><span class="t" style="text-decoration:none!important">Quiero activar el seguimiento del ciclo menstrual (opcional)</span></button></div>`}
-function readProf(){const g=i=>$("#"+i).value,n=i=>parseFloat(g(i));const p={age:n("pa"),w:n("pw"),h:n("ph"),goal:g("pg"),level:+g("pl"),act:+g("pc"),place:g("pp"),days:+g("pd"),diet:g("pt"),skin:+g("ps")};
+function readProf(){const g=i=>$("#"+i).value,n=i=>parseFloat(g(i));const p={age:n("pa"),w:n("pw"),h:n("ph"),goal:g("pg"),level:+g("plv"),act:+g("pc"),place:g("pp"),days:+g("pd"),diet:g("pt"),skin:+g("ps")};
   return p.age>=18&&p.age<=100&&p.w>=35&&p.w<=250&&p.h>=130&&p.h<=220?p:null}
 function vOnb(){return`<div class="auth" style="align-items:flex-start"><form class="auth-card" id="pf" style="text-align:left;background:transparent;box-shadow:none;border:0;padding:10px"><div style="text-align:center"><div class="logo">Bellas<b>Fit</b></div><h3 class="serif" style="font-size:1.6rem;color:var(--rp-d)">Cuéntanos de ti</h3>
 <p class="d">Con estos datos calculamos tus calorías, tu agua y tu plan de entrenamiento. Se guardan solo en tu dispositivo. Los cálculos son orientativos y no sustituyen la consulta con un profesional de salud.</p></div>${profForm({})}<div class="err" id="er"></div><button class="btn">CREAR MI PLAN</button></form></div>`}
@@ -688,13 +688,13 @@ ${CFG.BUY_URL!=="#"?`<a class="btn ghost" href="${CFG.BUY_URL}" target="_blank" 
 let obRange=null,obAge=null;
 function profForm(p={}){return`<div class="card"><h3 class="sec">Tus datos</h3><div class="grid2 keep" style="gap:0 10px">${onbField("Edad","pa",p.age||obAge)}${onbField("Peso (kg)","pw",p.w,"number",'step="0.1"')}${onbField("Altura (cm)","ph",p.h)}</div></div>
 <div class="card"><h3 class="sec">Tu entrenamiento</h3><div class="field"><label>Objetivo</label>${sel("pg",Object.entries(GOALS).map(([k,v])=>[k,v[0]]),p.goal||"tonificar")}</div>
-<div class="field"><label>Nivel</label>${sel("pl",LEVELS,p.level??0)}</div><div class="field"><label>Actividad actual</label>${sel("pc",ACTS,p.act??1)}</div>
+<div class="field"><label>Nivel</label>${sel("plv",LEVELS,p.level??0)}</div><div class="field"><label>Actividad actual</label>${sel("pc",ACTS,p.act??1)}</div>
 <div class="field"><label>Dónde entrenas</label>${sel("pp",[["casa","En casa"],["gym","En el gimnasio"],["oficina","En el trabajo / oficina"],["ambos","Casa y gimnasio"]],p.place||"casa")}</div>
 <div class="grid2 keep" style="gap:0 10px"><div class="field"><label>Tiempo por día</label>${sel("pm",[[10,"10 minutos"],[20,"20 minutos"],[30,"30 minutos"],[45,"45 min o más"]],p.time||30)}</div><div class="field"><label>Días por semana</label>${sel("pd",[[3,"3 días"],[4,"4 días"],[5,"5 días"],[6,"6 días"]],p.days||3)}</div></div></div>
 <div class="card"><h3 class="sec">Alimentación y cuidado</h3><div class="field"><label>Tipo de alimentación</label>${sel("pt",[["omni","Como de todo"],["veg","Vegetariana"]],p.diet||"omni")}</div>
 <div class="field"><label>Tipo de piel</label>${sel("ps",SKINS,p.skin??0)}</div>
 <button type="button" class="chk ${S.cyc.on?"on":""}" id="cycOpt" data-a="cycopt"><span class="ck">${S.cyc.on?ic("check"):""}</span><span class="t" style="text-decoration:none!important">Quiero activar el seguimiento del ciclo menstrual (opcional)</span></button></div>`}
-function readProf(){const g=i=>$("#"+i).value,n=i=>parseFloat(g(i));const p={age:n("pa"),w:n("pw"),h:n("ph"),goal:g("pg"),level:+g("pl"),act:+g("pc"),place:g("pp"),time:+g("pm"),days:+g("pd"),diet:g("pt"),skin:+g("ps")};
+function readProf(){const g=i=>$("#"+i).value,n=i=>parseFloat(g(i));const p={age:n("pa"),w:n("pw"),h:n("ph"),goal:g("pg"),level:+g("plv"),act:+g("pc"),place:g("pp"),time:+g("pm"),days:+g("pd"),diet:g("pt"),skin:+g("ps")};
   p.range=p.age<30?0:p.age<40?1:p.age<50?2:3;return p.age>=18&&p.age<=100&&p.w>=35&&p.w<=250&&p.h>=130&&p.h<=220?p:null}
 function vOnb(){
   if(obRange===null)return`<div class="auth" style="align-items:flex-start"><div class="auth-card" style="background:transparent;box-shadow:none;border:0;padding:6px"><div class="logo">Bellas<b>Fit</b></div><h3 class="serif" style="font-size:1.9rem;color:var(--rp-d);line-height:1.1;margin-top:6px">¿En qué rango de edad estás?</h3><p class="d">Así preparamos un plan hecho para ti.</p>
