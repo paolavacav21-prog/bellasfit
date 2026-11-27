@@ -509,7 +509,7 @@ reach:[[50,16,50,26,50,52,52,40,54,52,48,40,46,52,51,70,52,87,49,70,48,87],[50,1
 superman:[[12,84,20,84,52,84,30,84,40,84,30,84,40,84,68,84,84,84,66,84,82,84],[12,74,20,78,52,82,30,72,40,68,30,72,40,68,68,78,84,72,66,78,82,72]],
 kick:[[26,50,32,54,64,58,32,70,32,86,30,70,30,86,64,84,80,86,62,84,78,86],[26,50,32,54,64,58,32,70,32,86,30,70,30,86,64,84,80,86,78,60,92,50]],
 yoga:[[38,34,38,44,38,68,40,56,42,68,36,56,38,68,52,84,30,86,50,84,28,86],[72,78,62,74,36,72,76,80,88,84,74,80,86,84,52,84,30,86,50,84,28,86]]};
-function kindOf(n,tipo){n=n.toLowerCase();const m=[[/flexi|fondos/,"pushup"],[/escalador|mountain/,"climber"],[/plancha/,"plank"],[/zancada|b[uú]lgara/,"lunge"],[/sentadilla|goblet|prensa|peso muerto/,"squat"],[/puente|hip thrust/,"bridge"],[/abdominal|bicicleta|dead bug|elevaci[oó]n de piernas|cien|roll|diafr|colgada|pallof/,"crunch"],[/jumping|burpee|salto|skater/,"jack"],[/marcha|rodillas|talones|caminata en casa|caminadora|pasos|baile|trote|intervalos|bici|el[ií]ptica/,"march"],[/superman|bird dog|retracci/,"superman"],[/patada|hidrante|lateral con banda|abducci[oó]n|curl femoral/,"kick"],[/ni[nñ]o|gato|perro|guerrero|savasana|torsi[oó]n|cadera|isquio/,"yoga"]];
+function kindOf(n,tipo){n=n.toLowerCase();const m=[[/flexi|fondos/,"pushup"],[/escalador|mountain/,"climber"],[/plancha/,"plank"],[/zancada|b[uú]lgara/,"lunge"],[/sentadilla|goblet|prensa|peso muerto/,"squat"],[/puente|hip thrust/,"bridge"],[/abdominal|bicicleta|dead bug|elevaci[oó]n de piernas|cien|roll|diafr|colgada|pallof/,"crunch"],[/jumping|burpee|salto|skater/,"jack"],[/marcha|rodillas|talones|caminata en casa|caminadora|pasos|baile|trote|intervalos|bici|el[ií]ptica/,"march"],[/superman|bird dog|retracci/,"superman"],[/patada|hidrante|lateral con banda|abducci[oó]n|curl femoral/,"kick"],[/gato|vaca/,"cat"],[/perro boca/,"down"],[/guerrero/,"warrior"],[/savasana/,"sava"],[/torsi[oó]n|rotaci[oó]n de columna/,"twist"],[/ni[nñ]o|cadera|isquio|pantorrilla/,"yoga"]];
   for(const[re,k]of m)if(re.test(n))return k;return tipo==="cardio"||tipo==="hiit"?"march":"reach"}
 function figInner(kind,t){const[A,B]=POSES[kind]||POSES.reach,p=A.map((v,i)=>v+(B[i]-v)*t),g=i=>[p[i*2],p[i*2+1]];
   const L=(a,b,w,c)=>`<line x1="${a[0].toFixed(1)}" y1="${a[1].toFixed(1)}" x2="${b[0].toFixed(1)}" y2="${b[1].toFixed(1)}" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`;
@@ -528,7 +528,7 @@ function weekBars(){const t=TODAY(),dow=(pd(t).getDay()+6)%7,mon=addD(t,-dow),da
   return`<div class="bars7">${days.map((d,i)=>{const m=(S.wlog[d]||{}).min||0;return`<div class="b7 ${d===t?"t":""}"><small>${m||""}</small><i style="height:${Math.max(4,m/mx*78)}%"></i><span>${"LMXJVSD"[i]}</span></div>`}).join("")}</div>`}
 
 /* ---- rutina: lista con figuras + botón empezar ---- */
-const exList=r=>r.ex.map(e=>`<div class="exr"><span class="mini">${fig(kindOf(e[0],r.tipo),1)}</span><span><b>${esc(e[0])}</b><br><small>${esc(e[1])}</small></span></div>`).join("");
+const exList=r=>r.ex.map(e=>`<div class="exr"><span class="mini">${fig(kindOf(e[0],r.tipo),1)}</span><span><b>${esc(e[0])}</b><br><small>${esc(e[1])} · ${esc(exTip(e[0]))}</small><a class="vl" target="_blank" rel="noopener" href="${exLink(e[0])}">Ver cómo se hace ↗</a></span></div>`).join("");
 function routineHtml(r){const q=encodeURIComponent(r.q+" español"),own=r.yt?(r.yt.match(/(?:v=|youtu\.be\/|embed\/)([\w-]{11})/)||[])[1]||r.yt:"",lv=S.prof.level,ser=(r.tipo==="relax"||r.tipo==="mov")?1:[2,3,4][lv];
   return`${own?`<div style="aspect-ratio:16/9;margin-bottom:10px"><iframe src="https://www.youtube-nocookie.com/embed/${own}" style="width:100%;height:100%;border:0;border-radius:14px" allowfullscreen></iframe></div>`:""}
 <p class="sub" style="margin-bottom:4px">${ser===1?"1 vuelta tranquila":ser+" vueltas del circuito"} · descanso corto entre ejercicios</p>${exList(r)}
@@ -612,7 +612,7 @@ function plShow(){const el=document.getElementById("pl");if(!el||!PL)return;cons
     <div class="plbtns"><button class="rnd" data-p="add" aria-label="+10 s" style="font-size:.85rem">+10s</button><button class="btn" data-p="skip">SALTAR</button></div>`}
   else{const timed=!!s.sec,run=PL.ph==="run",pause=PL.ph==="pause";
     h=`<div class="plh"><button data-p="exit">✕</button><span>Ejercicio ${PL.i+1}/${tot}${s.rounds>1?" · vuelta "+s.round+"/"+s.rounds:""}</span><span style="width:38px"></span></div><div class="plbar"><i style="width:${PL.i/tot*100}%"></i></div>
-    <div style="margin:auto 0;width:100%"><div class="plfig">${fig(s.kind,0,run||PL.ph==="ready")}</div><h2>${esc(s.n)}</h2><div class="plbig" id="plbig">${timed?mmss(run?PL.end-Date.now():pause?PL.left:s.sec*1000):s.reps}</div><p class="sub">${timed?"tiempo":"repeticiones"+(/por (\w+)/.test(s.dose)?" por "+RegExp.$1:"")}</p></div>
+    <div style="margin:auto 0;width:100%"><div class="plfig">${fig(s.kind,0,run||PL.ph==="ready")}</div><h2>${esc(s.n)}</h2><div class="plbig" id="plbig">${timed?mmss(run?PL.end-Date.now():pause?PL.left:s.sec*1000):s.reps}</div><p class="sub">${timed?"tiempo":"repeticiones"+(/por (\w+)/.test(s.dose)?" por "+RegExp.$1:"")}</p>${exTipHtml(s.n)}</div>
     <div class="plbtns"><button class="rnd" data-p="prev" aria-label="Anterior">${ic("left")}</button><button class="btn" data-p="main">${timed?(run?"PAUSAR":pause?"CONTINUAR":"INICIAR"):"✓ LISTO"}</button><button class="rnd" data-p="next" aria-label="Siguiente">${ic("right")}</button></div>`}
   el.innerHTML=h;startAnims()}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-p]");if(b)plAct(b.dataset.p)});
@@ -701,6 +701,41 @@ function vOnb(){
 <div class="agegrid">${AGES.map((a,i)=>`<button class="agec" data-a="rng:${i}"><div class="av">${avSlot(i)}</div><b>Edad: ${a}</b></button>`).join("")}</div></div></div>`;
   return`<div class="auth" style="align-items:flex-start"><form class="auth-card" id="pf" style="text-align:left;background:transparent;box-shadow:none;border:0;padding:10px"><div style="text-align:center"><div class="logo">Bellas<b>Fit</b></div><h3 class="serif" style="font-size:1.6rem;color:var(--rp-d)">Cuéntanos de ti</h3>
 <p class="d">Con estos datos calculamos tus calorías, tu agua y un plan para tu edad, tu tiempo y el lugar donde entrenas. Se guardan solo en tu dispositivo. Los cálculos son orientativos y no sustituyen la consulta con un profesional de salud.</p></div>${profForm({})}<div class="err" id="er"></div><button class="btn">CREAR MI PLAN</button><button type="button" class="link" data-a="rngback">← Cambiar rango de edad</button></form></div>`}
+
+/* ================= v4: posturas de yoga propias + ayuda por ejercicio ================= */
+Object.assign(POSES,{
+cat:[[22,46,30,54,66,60,32,70,32,86,30,70,30,86,66,84,84,86,64,84,82,86],[22,66,32,52,66,52,32,70,32,86,30,70,30,86,66,84,84,86,64,84,82,86]],
+down:[[16,54,24,58,58,66,24,72,24,86,22,72,22,86,73,76,88,86,71,76,86,86],[28,68,32,58,58,28,28,72,22,86,26,72,20,86,74,58,88,86,72,58,86,86]],
+warrior:[[50,16,50,26,50,52,52,40,54,52,48,40,46,52,51,70,52,87,49,70,48,87],[50,16,50,26,50,52,66,26,84,26,34,26,16,26,68,66,72,87,34,70,22,87]],
+twist:[[50,34,50,44,50,70,56,58,62,68,44,58,38,68,68,76,46,84,32,76,54,84],[54,34,50,44,50,70,62,52,42,58,40,52,60,58,68,76,46,84,32,76,54,84]],
+sava:[[12,84,20,84,50,84,28,86,38,86,28,86,38,86,68,84,84,84,66,84,82,84],[12,83,20,83,50,83,28,85,38,85,28,85,38,85,68,83,84,83,66,83,82,83]]});
+
+const EXD=[[/ni[nñ]o/,"Siéntate sobre los talones, inclina el pecho hacia delante y estira los brazos al frente. Respira lento."],
+[/gato|vaca/,"A cuatro apoyos: al inhalar hunde la espalda y mira al frente; al exhalar redondea la espalda y baja la cabeza."],
+[/perro boca/,"Forma una V invertida: manos y pies en el suelo, caderas arriba y talones hacia abajo."],
+[/guerrero/,"Piernas bien abiertas, rodilla delantera doblada sobre el tobillo y brazos extendidos a la altura de los hombros."],
+[/torsi[oó]n/,"Sentada con la espalda recta, gira suave el torso hacia un lado y mira por encima del hombro."],
+[/savasana/,"Acuéstate boca arriba, brazos y piernas sueltos, ojos cerrados. Solo respira."],
+[/plancha lateral/,"De lado, apoya el antebrazo y eleva la cadera hasta formar una línea recta."],
+[/plancha/,"Cuerpo en línea recta de cabeza a talones, abdomen firme y sin hundir la espalda."],
+[/sentadilla/,"Pies al ancho de los hombros, lleva la cadera hacia atrás como si te sentaras y mantén el pecho arriba."],
+[/zancada|b[uú]lgara/,"Da un paso largo, baja la rodilla de atrás hacia el suelo y vuelve a subir empujando con el talón."],
+[/puente|hip thrust/,"Acostada, pies apoyados; eleva la cadera apretando glúteos y baja con control."],
+[/flexi/,"Manos bajo los hombros, baja el pecho con el cuerpo recto y empuja para subir."],
+[/dead bug/,"Acostada, brazos arriba y rodillas dobladas; extiende brazo y pierna contrarios sin despegar la espalda del suelo."],
+[/bicicleta/,"Acostada, lleva el codo hacia la rodilla contraria alternando, sin tirar del cuello."],
+[/superman/,"Boca abajo, eleva brazos y piernas a la vez y sostén un segundo."],
+[/patada|hidrante|abducci/,"A cuatro apoyos, eleva la pierna con la rodilla doblada sin mover la cadera."],
+[/escalador|mountain/,"En plancha, lleva una rodilla al pecho y alterna rápido manteniendo la cadera baja."],
+[/burpee/,"Baja las manos al suelo, lleva los pies atrás, regresa y ponte de pie. Hazlo sin salto si lo necesitas."],
+[/jumping/,"Abre piernas y brazos a la vez y vuelve. Sin salto: da pasos laterales."],
+[/marcha|rodillas arriba/,"Camina en el sitio elevando las rodillas y moviendo los brazos."],
+[/estiramiento|hombros|cuello|mu[nñ]ecas|pecho/,"Mueve despacio, sin rebotes, hasta sentir una tensión suave. No debe doler."],
+[/remo|press|curl|fondos|jal[oó]n|tr[ií]ceps/,"Controla el movimiento: sube y baja lento, sin balancear el cuerpo."]];
+const exTip=n=>{const l=n.toLowerCase();for(const[re,t]of EXD)if(re.test(l))return t;return"Sigue el ritmo de la figura. Si no te queda claro, abre el video de referencia."};
+const exLink=n=>"https://www.youtube.com/results?search_query="+encodeURIComponent(n+" ejercicio cómo se hace paso a paso español");
+const exTipHtml=n=>`<p class="tipx">${esc(exTip(n))}</p><a class="vl" target="_blank" rel="noopener" href="${exLink(n)}">${ic("ext")} Ver video de referencia</a>`;
+document.head.appendChild(Object.assign(document.createElement("style"),{textContent:`.tipx{font-size:.92rem;color:var(--tx2);max-width:420px;margin:4px auto 6px;line-height:1.35}.vl{display:inline-block;font-size:.82rem;color:var(--rp-d);text-decoration:none;border:1.5px solid var(--rp);border-radius:20px;padding:5px 12px;background:#fff}.exr .vl{margin-top:4px;padding:3px 10px;font-size:.74rem}.exr small{display:block}`}));
 
 render();recheck();
 </script>
