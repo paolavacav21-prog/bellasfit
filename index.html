@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#D8A0A8">
+<title>BellasFit</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--rp:#D8A0A8;--rp-d:#c0838d;--rs:#F5DDE1;--rc:#FFF4F5;--cr:#FFFCFA;--au:#C6A36A;--sv:#A8B5A0;--tx:#4a3a3d;--tx2:#8a7478;--sh:0 8px 26px rgba(216,160,168,.22)}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Jost',system-ui,sans-serif;background:linear-gradient(180deg,var(--rc),var(--cr) 320px);color:var(--tx);min-height:100vh;line-height:1.5}
+h1,h2,h3,h4,.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600}
+button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer;border:0}
+svg{width:1.2em;height:1.2em;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.2em}
+a{color:var(--rp-d)}
+.auth{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at 15% 10%,var(--rs),transparent 45%),radial-gradient(circle at 90% 90%,#e8eee4,transparent 45%),var(--rc)}
+.auth-card{background:var(--cr);border-radius:30px;padding:32px 24px;max-width:460px;width:100%;box-shadow:var(--sh);border:1px solid var(--rs);text-align:center}
+.brand{letter-spacing:.42em;font-size:.78rem;color:var(--au);font-weight:500}
+.logo{font-family:'Cormorant Garamond',serif;font-size:2.8rem;color:var(--rp-d);line-height:1;margin:4px 0}
+.logo b{color:var(--au);font-weight:600}
+.gold-line{width:60px;height:2px;background:var(--au);margin:12px auto 16px;border-radius:2px}
+.auth-card p.d{color:var(--tx2);font-size:.95rem;margin-bottom:16px}
+.field{text-align:left;margin-bottom:12px}
+.field label{font-size:.72rem;letter-spacing:.06em;color:var(--tx2);margin-left:4px;text-transform:uppercase}
+.field input,.field select,.ta{width:100%;padding:12px 14px;border-radius:16px;border:1.5px solid var(--rs);background:var(--rc);outline:0;margin-top:3px}
+.field input:focus,.field select:focus,.ta:focus{border-color:var(--rp)}
+.ta{min-height:110px;resize:vertical;margin:0}
+.btn{background:var(--rp);color:#fff;padding:13px 22px;border-radius:30px;font-weight:500;letter-spacing:.06em;width:100%;box-shadow:0 4px 14px rgba(216,160,168,.45);display:block;text-align:center;text-decoration:none}
+.btn:hover{background:var(--rp-d)}
+.btn.sm{width:auto;display:inline-block;padding:8px 16px;font-size:.85rem;letter-spacing:.02em}
+.btn.ghost{background:transparent;color:var(--rp-d);border:1.5px solid var(--rp);box-shadow:none}
+.btn+.btn{margin-top:10px}
+.err{color:#b4505e;font-size:.85rem;min-height:1.2em;margin:4px 0 8px}
+.link{background:none;color:var(--tx2);font-size:.85rem;margin-top:12px;text-decoration:underline}
+header{position:sticky;top:0;z-index:5;background:rgba(255,252,250,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--rs);display:flex;align-items:center;justify-content:space-between;padding:10px 16px}
+header .logo{font-size:1.7rem;margin:0}
+.pill{background:var(--rs);color:var(--rp-d);border-radius:20px;padding:7px 13px;font-size:.8rem}
+main{max-width:860px;margin:0 auto;padding:16px 14px 110px}
+nav{position:fixed;bottom:0;left:0;right:0;background:var(--cr);border-top:1px solid var(--rs);display:flex;justify-content:center;padding:6px 6px calc(6px + env(safe-area-inset-bottom));z-index:6;box-shadow:0 -4px 20px rgba(216,160,168,.15)}
+nav button{flex:1;max-width:130px;background:none;color:var(--tx2);display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.66rem;padding:6px 2px;border-radius:16px}
+nav button svg{width:22px;height:22px}nav button.on{color:#fff;background:var(--rp)}
+.card{background:#fff;border:1px solid var(--rs);border-radius:24px;padding:18px;margin-bottom:14px;box-shadow:var(--sh)}
+.hero{background:linear-gradient(135deg,var(--rs),var(--rc) 75%)}
+.hero h2{font-size:1.9rem;color:var(--rp-d);line-height:1.1}
+.sub{color:var(--tx2);font-size:.88rem}
+h3.sec{font-size:1.3rem;color:var(--rp-d);margin:0 0 10px;display:flex;align-items:center;gap:8px}
+h4{color:var(--rp-d);font-size:1.1rem;margin-bottom:4px}
+.bar{height:11px;background:var(--rs);border-radius:10px;overflow:hidden;margin:8px 0 4px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--rp),var(--au));border-radius:10px;transition:width .4s}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.85rem;color:var(--tx2)}
+.big{font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--rp-d);line-height:1}
+.tag{display:inline-block;font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;padding:3px 10px;border-radius:12px;background:var(--rs);color:var(--rp-d);font-weight:500;margin:0 4px 4px 0}
+.tag.sv{background:#e9eee6;color:#6f7f68}.tag.au{background:#f4ead8;color:#9b7c43}
+.quote{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;border-left:3px solid var(--au);padding-left:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.g3 .m{background:var(--rc);border-radius:16px;padding:10px 4px}.g3 small{display:block;color:var(--tx2);font-size:.7rem}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}.grid2.keep{grid-template-columns:1fr 1fr}}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;margin-bottom:6px;scrollbar-width:none}
+.chips button{flex:none;padding:8px 15px;border-radius:22px;background:var(--rc);color:var(--tx2);border:1.5px solid var(--rs);font-size:.84rem}
+.chips button.on{background:var(--rp);color:#fff;border-color:var(--rp)}
+ul.l{list-style:none;padding:0}
+ul.l li{padding:7px 0 7px 24px;position:relative;font-size:.92rem;border-bottom:1px dashed var(--rs)}
+ul.l li:before{content:"✿";position:absolute;left:0;color:var(--au)}
+ul.l li:last-child{border:0}
+.chk{display:flex;align-items:center;gap:12px;width:100%;background:none;text-align:left;padding:10px 2px;border-bottom:1px dashed var(--rs);font-size:.93rem}
+.chk .ck{width:26px;height:26px;border-radius:50%;border:2px solid var(--rp);display:grid;place-items:center;color:#fff;flex:none}
+.chk.on .ck{background:var(--rp)}.chk.on span.t{color:var(--tx2);text-decoration:line-through}
+.item{background:#fff;border:1px solid var(--rs);border-radius:20px;margin-bottom:10px;overflow:hidden}
+.item>button{width:100%;background:none;text-align:left;padding:13px 15px;display:flex;gap:12px;align-items:center}
+.item .ic{width:40px;height:40px;border-radius:50%;background:var(--rs);color:var(--rp-d);display:grid;place-items:center;flex:none}
+.item .nm{font-weight:500}.item .ds{font-size:.8rem;color:var(--tx2)}
+.item .body{padding:0 15px 15px;font-size:.92rem}
+.item.lock{opacity:.55}
+.dsel{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:10px}
+.dsel button{background:var(--rs);color:var(--rp-d);width:34px;height:34px;border-radius:50%}
+.cnt{display:flex;align-items:center;justify-content:center;gap:16px}
+.cnt button{width:42px;height:42px;border-radius:50%;background:var(--rs);color:var(--rp-d);font-size:1.4rem}
+.moods{display:flex;gap:8px;margin-bottom:10px}
+.moods button{flex:1;font-size:1.6rem;padding:8px 0;border-radius:18px;background:var(--rc);border:1.5px solid var(--rs)}
+.moods button.on{background:var(--rs);border-color:var(--rp)}
+.mg{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center;font-size:.72rem;color:var(--tx2)}
+.mg b{display:grid;place-items:center;aspect-ratio:1;border-radius:10px;background:var(--rc);color:var(--tx);font-weight:500;font-size:.8rem}
+.mg b.t{outline:2px solid var(--au)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
+.ph{aspect-ratio:3/4;border-radius:16px;background:var(--rc);border:1.5px dashed var(--rp);display:grid;place-items:center;overflow:hidden;color:var(--tx2);font-size:.8rem;text-align:center;position:relative}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph small{position:absolute;bottom:0;left:0;right:0;background:rgba(255,255,255,.85);font-size:.68rem;padding:2px}
+.mt{width:100%;border-collapse:collapse;font-size:.85rem}
+.mt td,.mt th{padding:6px 4px;text-align:left;border-bottom:1px dashed var(--rs)}.mt th{color:var(--tx2);font-weight:500;font-size:.72rem}
+.circle{width:150px;height:150px;border-radius:50%;margin:16px auto;background:radial-gradient(circle,var(--rs),var(--rp));display:grid;place-items:center;color:#fff;font-weight:500;transition:transform 1s linear;text-align:center;padding:10px}
+.lockbox{text-align:center;padding:22px 14px;color:var(--tx2)}
+small.n{color:var(--tx2);font-size:.76rem;display:block;margin-top:6px}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+/* ============ CONFIGURACIÓN ============ */
+// API_URL: dirección del servidor de acceso (Cloudflare Worker). Si está vacío, la app corre en MODO DEMO con el código 2124.
+const CFG={API_URL:"",BUY_URL:"#",DEMO_HASH:"937af1388b56da6158356e163bab3daa410e2b945275670cdff3474d14c8ad00",SALT:"bellasfit:"};
+
+/* ============ CONTENIDO (editable) ============ */
+const GOALS={bajar:["Bajar grasa y definir",-0.18],tonificar:["Tonificar mi cuerpo",-0.07],fuerza:["Ganar fuerza y glúteos",0.08],energia:["Energía y bienestar",0]};
+const LEVELS=["Principiante","Intermedia","Avanzada"],ACTS=["Sedentaria (casi no me muevo)","Ligera (1-2 días/semana)","Moderada (3-5 días/semana)","Muy activa (6-7 días/semana)"];
+const SKINS=["Normal","Seca","Mixta","Grasa","Sensible"];
+const PLANSEQ={bajar:["full","cardio","inf","hiit","sup","mov"],tonificar:["inf","sup","core","full","cardio","mov"],fuerza:["inf","sup","inf","core","full","mov"],energia:["cardio","relax","full","mov","cardio","relax"]};
+const DAYSET={3:[0,2,4],4:[0,1,3,5],5:[0,1,2,4,5],6:[0,1,2,3,4,5]};
+const TIPOS={inf:"Piernas y glúteos",sup:"Tren superior",core:"Core",full:"Cuerpo completo",cardio:"Cardio",hiit:"HIIT",relax:"Yoga / relajación",mov:"Movilidad"};
+// Rutinas: id|nombre|tipo|lugar(c=casa,g=gym)|nivel mínimo|minutos|mes de desbloqueo|ejercicios (nombre~dosis;...)|búsqueda YouTube|(opcional) tu video de YouTube
+const LIB=`h1|Piernas y glúteos en casa|inf|c|1|30|1|Sentadilla~12 reps;Puente de glúteos~15 reps;Zancadas alternas~10 por pierna;Sentadilla sumo~12 reps;Patada de glúteo en cuadrupedia~12 por pierna|glutes and legs workout at home no equipment
+h2|Tren superior en casa|sup|c|1|25|1|Flexiones en rodillas~8-10 reps;Remo con botellas o mochila~12 reps;Fondos en silla~10 reps;Press de hombros con botellas~12 reps;Superman~12 reps|upper body workout women at home
+h3|Core y abdomen|core|c|1|15|1|Plancha~30 s;Bicicleta abdominal~20 reps;Dead bug~10 por lado;Elevación de piernas~12 reps;Plancha lateral~20 s por lado|abs core workout women at home
+h4|Cardio suave sin saltos|cardio|c|1|25|1|Marcha en el sitio~1 min;Pasos laterales con brazos~1 min;Rodillas arriba suave~45 s;Talones al glúteo~45 s;Jumping jack sin salto~1 min|low impact cardio workout at home
+h5|HIIT en casa|hiit|c|2|20|1|Sentadilla con salto~30 s;Mountain climbers~30 s;Burpee sin salto~30 s;Skaters~30 s;Plancha con toque de hombro~30 s|hiit workout at home women 20 minutes
+h6|Yoga suave|relax|c|1|20|1|Postura del niño~1 min;Gato-vaca~10 reps;Perro boca abajo~45 s;Guerrero II~30 s por lado;Torsión sentada~30 s por lado;Savasana~2 min|gentle yoga for beginners 20 minutes
+h7|Movilidad y estiramiento|mov|c|1|15|1|Círculos de cuello~10;Círculos de hombros~10;Rotación de columna~10 por lado;Estiramiento de cadera~30 s por lado;Isquiotibiales~30 s por lado|full body stretching routine
+h8|Cuerpo completo en casa|full|c|1|35|1|Sentadilla~12 reps;Flexiones en rodillas~8 reps;Zancadas~10 por pierna;Remo con botella~12 reps;Plancha~30 s;Puente de glúteos~15 reps|full body workout at home women
+h9|Glúteos con banda|inf|c|2|25|2|Puente con banda~15 reps;Caminata lateral con banda~12 pasos;Patada con banda~12 por pierna;Sentadilla con banda~12 reps;Hidrante de fuego~12 por lado|banded glute workout at home
+h10|Postura y espalda|mov|c|1|15|2|Retracción escapular~12 reps;Gato-vaca~10 reps;Superman~10 reps;Estiramiento de pecho en puerta~30 s;Postura del niño~1 min|posture back exercises women
+h11|Core profundo y suelo pélvico|core|c|1|15|2|Respiración diafragmática~1 min;Dead bug lento~8 por lado;Puente con activación~10 reps;Bird dog~8 por lado;Plancha en rodillas~20 s|deep core pelvic floor exercises
+h12|Cardio baile|cardio|c|1|25|2|Baile libre~5 min;Pasos latinos~3 min;Rodillas arriba con música~2 min;Baile de brazos~3 min;Enfriamiento~3 min|dance cardio workout at home
+h13|Pilates en casa|core|c|1|25|3|Cien (hundred)~30 s;Roll-up~8 reps;Círculos de pierna~8 por lado;Puente pilates~10 reps;Plancha~30 s|pilates workout at home beginner
+h14|Mancuernas en casa|full|c|2|35|3|Sentadilla goblet~12 reps;Peso muerto rumano~12 reps;Remo con mancuerna~12 por lado;Press de hombros~10 reps;Zancada reversa~10 por pierna|dumbbell full body workout at home women
+h15|Tren superior con bandas|sup|c|1|25|3|Remo con banda~12 reps;Press de pecho con banda~12 reps;Elevaciones laterales~12 reps;Curl de bíceps con banda~12 reps;Extensión de tríceps~12 reps|resistance band upper body workout
+h16|Quema total|hiit|c|3|30|4|Burpee~40 s;Sentadilla con salto~40 s;Plancha escaladora~40 s;Zancada con salto~40 s;Flexiones~40 s|full body hiit workout women at home
+g1|Piernas y glúteos en gimnasio|inf|g|1|45|1|Sentadilla goblet~10 reps;Prensa de pierna~12 reps;Peso muerto rumano~10 reps;Hip thrust~12 reps;Abducción en máquina~15 reps;Curl femoral~12 reps|gym lower body workout women
+g2|Tren superior en gimnasio|sup|g|1|45|1|Jalón al pecho~12 reps;Press de pecho en máquina~10 reps;Remo sentada~12 reps;Press de hombros con mancuernas~10 reps;Curl de bíceps~12 reps;Tríceps en polea~12 reps|gym upper body workout women
+g3|Cuerpo completo con máquinas|full|g|1|45|1|Prensa de pierna~12 reps;Press de pecho~10 reps;Remo en máquina~12 reps;Curl femoral~12 reps;Plancha~30 s|full body machine workout gym beginner women
+g4|Cardio en máquinas por intervalos|cardio|g|1|30|1|Calentamiento caminadora~5 min;Intervalos 1 min rápido / 2 min suave~15 min;Bici o elíptica suave~5 min;Enfriamiento~5 min|treadmill interval workout beginners
+g5|Glúteos: hip thrust|inf|g|2|40|2|Hip thrust con barra~10 reps;Sentadilla búlgara~10 por pierna;Peso muerto rumano~10 reps;Patada en polea~12 por pierna;Abducción~15 reps|hip thrust glute workout gym women
+g6|Espalda y brazos|sup|g|1|40|3|Jalón al pecho~12 reps;Remo con mancuerna~10 por lado;Face pull~15 reps;Curl martillo~12 reps;Fondos asistidos~10 reps|back and arms workout gym women
+g7|Core y movilidad en gimnasio|core|g|1|30|2|Plancha~40 s;Elevación de rodillas colgada~10 reps;Pallof press~12 por lado;Foam roller~5 min;Estiramientos~5 min|gym core and mobility workout
+g8|Piernas: cuádriceps e isquios|inf|g|2|45|4|Sentadilla frontal o goblet~10 reps;Zancada caminando~12 por pierna;Extensión de cuádriceps~12 reps;Curl femoral~12 reps;Elevación de talones~15 reps|gym leg day women workout`.split("\n").map(l=>{const a=l.split("|");return{id:a[0],n:a[1],tipo:a[2],lug:a[3],niv:+a[4],min:+a[5],mes:+a[6],ex:a[7].split(";").map(x=>x.split("~")),q:a[8],yt:a[9]||""}});
+
+// Recetas por porción base: [nombre, kcal, proteína g, vegetariana(1/0), ingredientes, preparación]
+const REC={
+b:[["Avena con frutas y chía",320,12,1,"avena,leche o bebida vegetal,plátano,fresas,chía","Cocina la avena con la leche 5 minutos. Sirve con fruta picada y chía."],
+["Huevos revueltos con espinaca y tostada integral",350,20,1,"huevos,espinaca,pan integral,aceite de oliva","Saltea la espinaca, agrega los huevos batidos y sirve con la tostada."],
+["Yogur griego con granola y frutos rojos",300,18,1,"yogur griego,granola,frutos rojos,miel","Sirve el yogur con granola y frutos rojos. Un hilo de miel opcional."],
+["Tostada de aguacate con huevo",380,16,1,"pan integral,aguacate,huevo,limón","Machaca el aguacate con limón, úntalo en la tostada y corona con huevo cocido."],
+["Batido de espinaca, plátano y yogur",290,14,1,"espinaca,plátano,yogur natural,avena,agua o leche","Licúa todo hasta que quede cremoso y bébelo frío."],
+["Panqueques de avena y plátano",340,13,1,"avena,plátano,huevo,canela","Licúa avena, plátano y huevo. Cocina en sartén antiadherente y espolvorea canela."],
+["Omelette de pollo y verduras",360,30,0,"huevos,pechuga de pollo,pimiento,cebolla,aceite de oliva","Saltea el pollo desmenuzado con verduras, agrega los huevos y dobla el omelette."]],
+l:[["Bowl de pollo, quinoa y vegetales",520,38,0,"pechuga de pollo,quinoa,brócoli,zanahoria,aguacate,limón","Cocina la quinoa, saltea o hornea el pollo y arma el bowl con vegetales y aguacate."],
+["Ensalada de atún con garbanzos",480,34,0,"atún,garbanzos,tomate,pepino,lechuga,aceite de oliva,limón","Mezcla todo y aliña con aceite y limón."],
+["Bowl de lentejas, arroz integral y verduras",500,22,1,"lentejas,arroz integral,zanahoria,cebolla,espinaca","Cocina las lentejas con verduras y sirve sobre el arroz integral."],
+["Salmón al horno con camote y brócoli",560,36,0,"salmón,camote,brócoli,aceite de oliva,limón","Hornea el salmón y el camote 20 minutos a 200 °C. Cocina el brócoli al vapor."],
+["Wraps de pavo y vegetales",450,30,0,"tortilla integral,pavo,lechuga,tomate,aguacate,yogur natural","Rellena la tortilla con pavo, vegetales y salsa de yogur. Enrolla."],
+["Pasta integral con verduras y queso fresco",500,22,1,"pasta integral,calabacín,tomate,albahaca,queso fresco","Cocina la pasta, saltea las verduras y mezcla con queso fresco."],
+["Curry de garbanzos y espinaca con arroz",520,20,1,"garbanzos,espinaca,tomate,cebolla,curry,arroz integral","Cocina cebolla, tomate y curry; agrega garbanzos y espinaca. Sirve con arroz."]],
+d:[["Crema de calabaza y tortilla de espinaca",380,18,1,"calabaza,cebolla,huevos,espinaca","Licúa la calabaza cocida con cebolla. Prepara una tortilla con espinaca."],
+["Pechuga a la plancha con ensalada grande",400,38,0,"pechuga de pollo,lechuga,tomate,pepino,aceite de oliva","Cocina la pechuga a la plancha y sirve sobre una ensalada fresca."],
+["Pescado blanco con verduras salteadas",380,34,0,"pescado blanco,calabacín,pimiento,ajo,limón","Cocina el pescado 4 minutos por lado y saltea las verduras con ajo."],
+["Tofu salteado con vegetales y arroz",420,22,1,"tofu,brócoli,zanahoria,salsa de soya,arroz","Dora el tofu, agrega las verduras y la salsa. Sirve con arroz."],
+["Ensalada de huevo, tomate y aguacate",390,18,1,"huevos,tomate,aguacate,lechuga,aceite de oliva","Cocina los huevos 10 minutos, pícalos y mezcla con el resto."],
+["Sopa de verduras con pollo desmenuzado",360,30,0,"pollo,zanahoria,apio,papa,cebolla,cilantro","Hierve el pollo con verduras 25 minutos, desmenúzalo y sirve caliente."]],
+s:[["Manzana con mantequilla de maní",180,5,1,"manzana,mantequilla de maní",""],["Yogur natural con canela y nueces",170,10,1,"yogur natural,canela,nueces",""],["Hummus con zanahoria y pepino",160,6,1,"hummus,zanahoria,pepino",""],["Huevo duro y una fruta",170,8,1,"huevos,fruta de temporada",""],["Frutos secos y una fruta",200,6,1,"almendras,fruta de temporada",""],["Batido de fruta con yogur",180,8,1,"fruta congelada,yogur natural",""],["Palomitas naturales",130,4,1,"maíz para palomitas",""]]};
+const SLOTS=[["b","Desayuno",.25],["s","Snack de la mañana",.075],["l","Almuerzo",.35],["s","Snack de la tarde",.075],["d","Cena",.25]];
+
+const MONTHS=[
+["Cimientos","Hidratación, movimiento y rutinas básicas.",[["7 días de agua completa","Cumple tu meta de vasos cada día."],["7 días moviéndote","Al menos 10 minutos de movimiento cada día."],["7 días de skincare","Rutina de mañana y de noche."],["7 días de gratitud","Escribe 3 cosas buenas cada día."]]],
+["Energía","Sueño, desayunos y energía sostenida.",[["Desayuno con proteína","7 días con proteína en el desayuno."],["Dormir 7 horas","Acuéstate a la misma hora toda la semana."],["Caminata de 20 min","Camina 20 minutos cada día."],["Pantallas apagadas","Sin pantallas 30 min antes de dormir."]]],
+["Fuerza","Fuerza, postura y constancia.",[["3 rutinas de fuerza","Completa 3 entrenamientos esta semana."],["Sentadillas diarias","3 series de 12 sentadillas al día."],["Plancha progresiva","Suma 5 segundos cada día."],["Estiramiento diario","10 minutos de movilidad al día."]]],
+["Piel y brillo","Skincare, cuerpo y cabello.",[["Protector solar diario","Úsalo cada mañana, aunque esté nublado."],["Rutina nocturna","No te saltes tu rutina de noche."],["Cuerpo suave","Hidrata tu cuerpo tras la ducha."],["Cabello feliz","Masaje del cuero cabelludo y mascarilla."]]],
+["Mente en calma","Respiración, diario y autoestima.",[["Respira 5 minutos","Una técnica de respiración al día."],["Meditación diaria","Elige una meditación guiada."],["Diario personal","Escribe unas líneas cada noche."],["Actividad de autoestima","Haz la actividad del día."]]],
+["Equilibrio","Planificación y hábitos que se quedan.",[["Menú planificado","Sigue tu menú diario 7 días."],["Compras y meal prep","Prepara comidas para 3 días."],["Come con atención","Sin pantallas mientras comes."],["Revisión y nuevas metas","Revisa tu progreso y fija metas."]]]];
+
+const SKINSTEPS={am:[["Limpieza suave","Con agua tibia y un limpiador para tu tipo de piel."],["Sérum (vitamina C u hidratante)","2-3 gotas en rostro y cuello."],["Hidratante","Ligera si es grasa/mixta, más rica si es seca."],["Protector solar SPF 30+","Cada mañana, también en días nublados."]],
+pm:[["Desmaquillar y limpiar","Limpieza doble si usas maquillaje o protector."],["Tratamiento o sérum","Según el día del calendario."],["Hidratante o crema de noche","Masajea hacia arriba."],["Contorno de ojos","Una gota con toques suaves."]]};
+const SKINCAL=[["Domingo","Masaje facial + mascarilla hidratante"],["Lunes","Rutina básica"],["Martes","Exfoliación suave (1 vez por semana)"],["Miércoles","Rutina básica + sérum"],["Jueves","Mascarilla según tu piel"],["Viernes","Rutina básica"],["Sábado","Tratamiento relajante: vapor suave + mascarilla"]];
+const SKINTIPS={Normal:"Mantén lo básico: limpieza, hidratación y protector.",Seca:"Prioriza hidratación (ácido hialurónico, cremas ricas). Evita agua muy caliente.",Mixta:"Hidratante ligera en zona T y más rica en mejillas. Exfolia con suavidad.",Grasa:"Limpiadores en gel e hidratantes livianos no comedogénicos. No te saltes la hidratación.",Sensible:"Productos sin fragancia, introduce uno nuevo a la vez y haz prueba en el antebrazo."};
+const BODY=[["Ducha consciente",["Agua tibia, no muy caliente.","Jabón suave en axilas, pliegues y pies.","Termina con 20 segundos de agua fresca.","Seca con toques, sin frotar."]],
+["Exfoliación corporal semanal",["Una vez por semana, en piel húmeda.","Círculos suaves de pies hacia el corazón.","Evita zonas irritadas.","Enjuaga e hidrata de inmediato."]],
+["Hidratación diaria",["Aplica crema con la piel aún húmeda.","Más cantidad en codos, rodillas y talones.","Manos: crema y guantes de algodón 1 noche por semana."]],
+["Masaje para piernas cansadas",["Acuéstate con las piernas elevadas 5 minutos.","Masajea con aceite o crema desde el tobillo hacia arriba.","Cierra con respiración lenta."]]];
+const HAIR=["Lava tu cabello 2-3 veces por semana, salvo que tu cuero cabelludo sea muy graso.","Aplica el champú en la raíz y el acondicionador de medios a puntas.","Usa mascarilla hidratante 1 vez por semana.","Seca con toalla de microfibra o camiseta de algodón, sin frotar.","Protector térmico siempre antes de plancha o secador.","Masajea el cuero cabelludo 3 minutos para activar la circulación.","Corta puntas cada 8 a 12 semanas.","Come proteína, hierro y bebe agua: el cabello lo refleja."];
+const RELAX=[["Baño relajante",["Agua tibia, luz tenue y música suave.","Sales de baño o aceite de lavanda (opcional).","5 respiraciones lentas con los ojos cerrados.","Sin pantallas durante el baño."]],
+["Estiramientos para dormir",["Rotación suave de cuello, 5 por lado.","Postura del niño, 1 minuto.","Torsión acostada, 30 s por lado.","Piernas en la pared, 3 minutos."]],
+["Ritual de noche",["Deja listo lo de mañana.","Apaga pantallas 30 minutos antes.","Infusión sin cafeína.","Escribe una gratitud y apaga la luz a tu hora."]],
+["Automasaje de cuello y hombros",["Presiona con los dedos la base del cuello 20 s.","Círculos lentos en los hombros.","Masajea las sienes y la mandíbula.","Termina con 3 respiraciones profundas."]]];
+const AUTOCARE=["Tomar 10 minutos de sol por la mañana","Llamar a alguien que quieres","Un baño o ducha sin prisa","Leer 15 minutos","Caminar sin celular","Preparar una comida que disfrutes","Ordenar un rincón de tu espacio","Mascarilla facial","Dormir 8 horas","Escribir lo que sientes","Escuchar tu música favorita","Decir no a algo que no quieres","Estirarte 10 minutos","Una tarde sin redes sociales","Comprarte flores o algo pequeño","Ver una película que te encante","Planear algo bonito para el fin de semana","Pedir ayuda cuando la necesites"];
+const BREATH=[["Respiración 4-7-8",[4,7,8,0],"Calma el sistema nervioso. Ideal antes de dormir."],["Respiración cuadrada",[4,4,4,4],"Equilibra y centra la mente."],["Respiración 5-5",[5,0,5,0],"Ritmo suave para bajar el estrés."]];
+const MEDS=[["Calma en 3 minutos",[["Siéntate cómoda y cierra los ojos.",20],["Inhala por la nariz contando 4 y exhala contando 6.",50],["Si llegan pensamientos, déjalos pasar como nubes.",50],["Siente tus pies apoyados y tu espalda erguida.",40],["Abre los ojos despacio. Llévate esta calma contigo.",20]]],
+["Gratitud en 5 minutos",[["Respira profundo tres veces.",25],["Piensa en algo bueno que pasó hoy.",60],["Piensa en una persona por la que sientes gratitud.",60],["Agradece a tu cuerpo por llevarte hoy.",60],["Respira y sonríe suavemente.",45]]],
+["Escaneo corporal para dormir",[["Acuéstate y respira lento.",30],["Relaja la frente, los ojos y la mandíbula.",45],["Suelta cuello y hombros.",45],["Relaja brazos y manos.",45],["Relaja abdomen y caderas.",45],["Relaja piernas y pies. Deja que el sueño llegue.",60]]]];
+const ESTEEM=["Escribe 3 cualidades que te gustan de ti.","Recuerda un logro del que te sientes orgullosa.","Escríbete una carta amable como a una amiga.","Haz una lista de cosas que tu cuerpo hace por ti.","Escribe qué le dirías a tu yo de hace 5 años.","Anota una cosa que hiciste bien hoy.","Mírate al espejo y di algo positivo en voz alta.","Escribe un límite que quieres poner y cómo hacerlo.","Haz una lista de 5 cosas que te hacen única.","Anota un miedo y un paso pequeño para enfrentarlo.","Elige una afirmación y repítela 5 veces.","Escribe a quién admiras y qué cualidad compartes con esa persona."];
+const SYMS=["Cólicos","Dolor de cabeza","Hinchazón","Cansancio","Antojos","Irritabilidad","Acné","Sensibilidad en senos","Buen ánimo","Mucha energía"];
+const PHASES={men:["Menstrual","Descansa y escucha a tu cuerpo. Movilidad, yoga suave y caminatas. Prioriza hierro (lentejas, espinaca) e hidratación."],fol:["Folicular","Energía en ascenso: buen momento para fuerza e intensidad. Come proteína y carbohidratos complejos."],ovu:["Ovulación","Pico de energía. Entrena fuerte y socializa. Hidrátate bien."],lut:["Lútea","Baja la intensidad si te sientes cansada. Más magnesio (frutos secos, cacao), sueño y pausas. Es normal tener más hambre."]};
+const TIPS=["Bebe un vaso de agua al despertar: activa tu metabolismo y tu energía.","Camina 10 minutos después de comer para mejorar la digestión.","Incluye proteína en cada comida para sentirte saciada.","Dormir bien regula el hambre y el ánimo.","Usa protector solar todos los días, también con nubes.","Estírate al terminar de entrenar para recuperar mejor.","Prepara tus snacks de la semana el domingo.","Respira profundo 1 minuto antes de comer.","Aumenta la dificultad poco a poco, no de golpe.","Tu piel refleja lo que bebes: prioriza el agua.","Los carbohidratos no son el enemigo: elige integrales.","Descansar es parte del entrenamiento.","Coloca la ropa deportiva lista la noche anterior.","Mide tu progreso con medidas y fotos, no solo con la báscula.","Cena ligera y 2 horas antes de dormir.","Celebra cada pequeño avance."];
+const FRASES=["No necesitas ser perfecta, necesitas ser constante.","Cada pequeño esfuerzo cuenta.","Hoy es una nueva oportunidad para cuidarte.","Tu bienestar merece tiempo y dedicación.","No te compares, cada proceso es diferente.","La disciplina construye lo que la motivación comienza.","Respira, hoy vas bien.","Lo que haces hoy construye la mujer que serás mañana.","Descansar también es parte del proceso.","Eres más fuerte de lo que crees.","Pequeños hábitos, grandes cambios.","Cuidarte no es egoísmo, es necesidad.","Hazlo con calma, pero hazlo.","Mereces sentirte bien en tu piel.","La constancia vence al talento y a la prisa.","Cada vaso de agua es un acto de cariño propio.","No tienes que hacerlo perfecto, solo empezar.","Tu ritmo es el correcto.","Un mal día no borra tu progreso.","Eres la prioridad de tu propia historia.","Muévete con gratitud, no con castigo.","Cada mañana es una página en blanco.","Tu yo del futuro te agradecerá lo que hagas hoy.","Brillas más cuando te cuidas.","Sigue, aunque sea despacio.","Cree en el proceso y cree en ti.","La calma también es poder.","Hoy es un gran día para seguir."];
+
+/* ============ ICONOS ============ */
+const P={home:'<path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/>',dumb:'<path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/>',leaf:'<path d="M11 20A7 7 0 0 1 4 13c0-6 7-10 16-10 0 9-4 17-9 17zM2 22c3-6 6-9 11-11"/>',spark:'<path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>',heart:'<path d="M20.8 5.6a5.5 5.5 0 0 0-7.8 0L12 6.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 22l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',check:'<path d="M20 6L9 17l-5-5"/>',droplet:'<path d="M12 2.5s7 7 7 12a7 7 0 0 1-14 0c0-5 7-12 7-12z"/>',left:'<path d="M15 18l-6-6 6-6"/>',right:'<path d="M9 18l6-6-6-6"/>',lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',camera:'<path d="M3 8a2 2 0 0 1 2-2h2l2-2h6l2 2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="4"/>',play:'<path d="M6 4l14 8-14 8z"/>',ext:'<path d="M15 3h6v6M10 14L21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>'};
+const ic=n=>`<svg viewBox="0 0 24 24">${P[n]}</svg>`;
+
+/* ============ AYUDAS, BATIDOS Y SUSTITUCIONES ============ */
+const ytb=(q,l="Ver videos de referencia")=>`<a class="btn sm ghost" style="margin:6px 6px 0 0" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(q)}">${ic("ext")} ${l}</a>`;
+const HINTS={"entrenar/plan":"Aquí ves qué entrenar cada día de esta semana. Toca una rutina para ver los ejercicios.","entrenar/lib":"Todas las rutinas. Las que tienen candado se abren en los próximos meses.","entrenar/reto":"Cada semana hay un mini reto. Toca el número de cada día que lo cumplas.",
+"nutri/menu":"Esto es lo que puedes comer hoy según tu cuerpo y tu objetivo. Toca una comida para ver cómo prepararla.","nutri/rec":"Recetas fáciles. Si te falta un ingrediente, abre la receta y verás con qué cambiarlo.","nutri/bat":"Batidos rápidos. Puedes cambiar las frutas por las que tengas en casa.","nutri/sub":"¿No tienes un ingrediente? Aquí encuentras con qué cambiarlo.","nutri/shop":"Lo que necesitas comprar para los próximos 7 días. Marca lo que ya tienes.","nutri/agua":"Toca + cada vez que tomes un vaso de agua. El calendario muestra cómo vas en el mes.","nutri/foto":"Sube fotos de lo que comes para ver tus hábitos.",
+"belleza/rostro":"Sigue estos pasos por la mañana y por la noche, y marca cuando los hagas.","belleza/cal":"Qué hacer cada día de la semana por tu piel. Toca M (mañana) o N (noche) al terminar.","belleza/cuerpo":"Rutinas simples para cuidar tu cuerpo.","belleza/cabello":"Consejos para un cabello más sano.","belleza/relax":"Rutinas para relajarte y dormir mejor.","belleza/auto":"Elige cosas pequeñas que te hagan sentir bien y márcalas.",
+"mente/animo":"Elige la carita que mejor represente cómo te sientes hoy.","mente/grat":"Escribe tres cosas por las que estés agradecida hoy.","mente/diario":"Un espacio privado para escribir lo que quieras.","mente/resp":"Toca Comenzar y sigue el círculo: cuando crece, inhala; cuando se achica, exhala.","mente/med":"Toca Comenzar y sigue las indicaciones, escritas y en voz alta.","mente/esti":"Una pequeña actividad cada día para quererte más.","mente/ciclo":"Opcional. Registra tu período para conocer mejor tu cuerpo.",
+"yo/medidas":"Anota tus medidas cada 2 semanas para ver cómo avanzas.","yo/fotos":"Fotos de tu progreso. Solo tú las ves.","yo/habitos":"Cuántos hábitos cumples cada día. Aquí también puedes añadir los tuyos.","yo/perfil":"Tus datos. Si cambian, actualízalos para que tu plan se ajuste."};
+const hint=t=>HINTS[t+"/"+sub[t]]?`<p class="sub" style="margin:-2px 2px 12px">${HINTS[t+"/"+sub[t]]}</p>`:"";
+const GUIDE=[["Hoy","todo lo del día: calorías, agua, entrenamiento y hábitos."],["Entrenar","toca una rutina para ver los ejercicios y videos de ejemplo."],["Nutrición","tu menú diario, recetas, batidos, compras y agua."],["Belleza","rutinas para tu piel, cuerpo y cabello."],["Mente","ánimo, diario, respiración y meditación."],["Mi perfil","(arriba a la derecha) medidas, fotos y tus datos."]];
+const BATIDOS=[["Verde energía",150,3,"espinaca,plátano,manzana verde,jengibre,agua","Energía de la mañana"],["Proteico de frutos rojos",260,18,"yogur griego,frutos rojos congelados,avena,leche o bebida vegetal","Después de entrenar"],["Fresa y plátano cremoso",220,9,"fresas,plátano,yogur natural,leche o bebida vegetal","Snack rico"],["Mango y piña con jengibre",170,2,"mango,piña,jengibre,agua de coco","Fresco y ligero"],["Chocolate saludable",280,10,"plátano,cacao en polvo,mantequilla de maní,leche o bebida vegetal,hielo","Te mantiene saciada"],["Piel radiante",150,2,"zanahoria,naranja,papaya o mango,limón","Frutas y color"],["Avena y canela",300,11,"avena,plátano,canela,leche o bebida vegetal,nueces","Desayuno rápido"],["Pepino y menta",90,2,"pepino,apio,manzana verde,limón,menta,agua","Muy hidratante"]];
+const SUBS=[["leche","bebida de avena, almendra o soya"],["yogur griego","yogur natural, requesón o queso crema light"],["yogur natural","yogur griego o kéfir"],["huevo","tofu revuelto, o en horneados 1 cda de chía o linaza con 3 cdas de agua por huevo"],["avena","quinoa en hojuelas, trigo sarraceno o cereal integral sin azúcar"],["plátano","mango, pera o manzana cocida"],["fresas","cualquier fruta de temporada"],["frutos rojos","fresas, uvas o cualquier fruta de temporada"],["chía","linaza molida o semillas de ajonjolí"],["pan integral","tortilla integral o arepa de maíz"],["aguacate","hummus, 1 cdta de aceite de oliva o frutos secos"],["espinaca","acelga, kale, lechuga u otra hoja verde"],["quinoa","arroz integral, cuscús integral o mijo"],["pechuga de pollo","pavo, pescado, huevo, tofu o legumbres"],["atún","sardinas, pollo desmenuzado o garbanzos"],["salmón","trucha, atún fresco o pescado blanco"],["pescado blanco","pollo, tofu o camarones"],["pavo","pollo o jamón de pavo bajo en sodio"],["camote","papa, yuca, calabaza o plátano maduro"],["arroz integral","quinoa, pasta integral o arroz blanco en porción menor"],["lentejas","frijoles, garbanzos o arvejas"],["garbanzos","frijoles blancos o lentejas"],["tofu","huevo, pollo o tempeh"],["queso fresco","requesón, ricota o queso panela"],["pasta integral","arroz integral o fideos de arroz"],["brócoli","coliflor, ejotes o espárragos"],["calabacín","chayote, berenjena o pepino"],["calabaza","zanahoria o camote"],["mantequilla de maní","mantequilla de almendra, tahini o semillas"],["nueces","almendras, maní o semillas de girasol"],["hummus","guacamole o queso crema light"],["granola","avena tostada o cereal integral sin azúcar"],["miel","un poco de stevia, dátil o canela"],["tortilla integral","pan pita integral o lechuga como wrap"],["mango","papaya, durazno o piña"],["piña","mango, kiwi o naranja"]];
+function subsHtml(ing){const out=[];ing.split(",").forEach(i=>{i=i.trim().toLowerCase();const s=SUBS.find(x=>i.includes(x[0]));if(s&&!out.some(o=>o[0]===s[0]))out.push(s)});
+  return out.length?`<div style="margin-top:10px;padding:10px 12px;background:var(--rc);border-radius:14px"><b>¿Te falta algo? Cámbialo por:</b><ul class="l" style="margin-top:4px">${out.map(s=>`<li><b>${s[0]}</b> → ${s[1]}</li>`).join("")}</ul></div>`:""}
+
+/* ============ ESTADO ============ */
+const KEY="bellasfit_v1",PKEY="bellasfit_photos_v1";
+const DEF=()=>({acc:null,prof:null,water:{},hab:{},mood:{},grat:{},diary:{},skin:{},wk:{},ch:{},meas:[],cyc:{on:false,starts:[],len:28,dur:5,sym:{}},shop:{},care:{},est:{},custom:[]});
+let S,PH;try{S=Object.assign(DEF(),JSON.parse(localStorage.getItem(KEY)))}catch(e){S=DEF()}
+try{PH=JSON.parse(localStorage.getItem(PKEY))||{food:[],prog:[]}}catch(e){PH={food:[],prog:[]}}
+let memFull=false;
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const savePh=()=>{try{localStorage.setItem(PKEY,JSON.stringify(PH));memFull=false}catch(e){memFull=true}};
+let tab="hoy",sub={hoy:"",entrenar:"plan",nutri:"menu",belleza:"rostro",mente:"animo",yo:"medidas"},op=null,sday=null,filt={t:"",l:""},timers=[],busy=false,loginMsg="";
+const $=s=>document.querySelector(s),root=$("#root");
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const dk=(d=new Date())=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const pd=k=>{const[y,m,d]=k.split("-");return new Date(+y,m-1,+d)};
+const dd=(a,b)=>Math.round((pd(b)-pd(a))/864e5);
+const addD=(k,n)=>{const d=pd(k);d.setDate(d.getDate()+n);return dk(d)};
+const TODAY=()=>dk();
+const MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],DIAS=["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"];
+const fdate=k=>{const d=pd(k);return DIAS[d.getDay()]+" "+d.getDate()+" "+MESES[d.getMonth()].slice(0,3)};
+const num=v=>String(Math.round(v*10)/10);
+const since=()=>S.acc?.since?S.acc.since.slice(0,10):TODAY();
+const daysIn=()=>Math.max(0,dd(since(),TODAY()));
+const MONTH=()=>Math.floor(daysIn()/30)+1;
+const WEEKN=()=>Math.floor(daysIn()/7);
+const hashS=async s=>{if(!(window.crypto&&crypto.subtle))return"";const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(CFG.SALT+s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")};
+
+/* ============ CÁLCULOS PERSONALES ============ */
+function calc(){const p=S.prof,bmr=10*p.w+6.25*p.h-5*p.age-161,tdee=bmr*[1.2,1.375,1.55,1.725][p.act];
+  const kcal=Math.max(1200,Math.round(tdee*(1+GOALS[p.goal][1])/10)*10),prot=Math.round(p.w*(p.goal==="energia"?1.2:1.6)),fat=Math.round(kcal*.28/9),carb=Math.max(0,Math.round((kcal-prot*4-fat*9)/4));
+  return{kcal,prot,fat,carb,tdee:Math.round(tdee)}}
+const waterG=()=>S.prof?Math.max(6,Math.min(14,Math.round(S.prof.w*35/250))):8;
+function menu(k){const base=Math.floor(pd(k)/864e5),c=calc(),p=S.prof;let cnt=0;
+  return SLOTS.map(([t,l,sh],i)=>{const list=REC[t].filter(r=>p.diet!=="veg"||r[3]);const r=list[(base+i*3+(t==="s"?cnt++:0))%list.length];
+    const sc=Math.max(.5,Math.min(2,Math.round(c.kcal*sh/r[1]*4)/4));return{l,r,sc,kcal:Math.round(r[1]*sc),prot:Math.round(r[2]*sc)}})}
+function cycInfo(){const c=S.cyc;if(!c.on||!c.starts.length)return null;const st=[...c.starts].sort(),last=st[st.length-1],L=c.len||28,day=dd(last,TODAY())+1;
+  let next=last;while(dd(next,TODAY())>=0)next=addD(next,L);const late=day>L+3;const cd=((day-1)%L)+1;
+  const ph=cd<=(c.dur||5)?"men":cd<=L-16?"fol":cd<=L-12?"ovu":"lut";return{day:cd,ph,next,inDays:dd(TODAY(),next),late}}
+
+/* ============ ENTRENAMIENTOS ============ */
+function pick(type,j){const p=S.prof,lv=p.level+1,m=MONTH(),wn=WEEKN();
+  const ok=r=>r.mes<=m&&r.niv<=lv&&(p.place==="ambos"||r.lug===(p.place==="gym"?"g":"c"));
+  let c=LIB.filter(r=>r.tipo===type&&ok(r));if(!c.length)c=LIB.filter(r=>r.tipo==="cardio"&&ok(r));if(!c.length)c=LIB.filter(r=>r.mes<=m&&r.niv<=lv);
+  return c[(wn+j)%c.length]}
+function weekPlan(){const p=S.prof,t=TODAY(),dow=(pd(t).getDay()+6)%7,mon=addD(t,-dow),slots=DAYSET[p.days]||DAYSET[3],seq=PLANSEQ[p.goal];let j=0;
+  return Array.from({length:7},(_,i)=>{const d=addD(mon,i),idx=slots.indexOf(i);return{d,r:idx>=0?pick(seq[idx%seq.length],j++):null}})}
+const todayR=()=>weekPlan().find(x=>x.d===TODAY())?.r;
+function routineHtml(r){const lv=S.prof.level,ser=["tipo"].length&&(r.tipo==="relax"||r.tipo==="mov")?1:[2,3,4][lv],lab=r.tipo==="cardio"||r.tipo==="hiit"?"rondas":"series";
+  const q=encodeURIComponent(r.q+" español"),own=r.yt?(r.yt.match(/(?:v=|youtu\.be\/|embed\/)([\w-]{11})/)||[])[1]||r.yt:"";
+  return`${own?`<div style="aspect-ratio:16/9;margin-bottom:10px"><iframe src="https://www.youtube-nocookie.com/embed/${own}" style="width:100%;height:100%;border:0;border-radius:14px" allowfullscreen></iframe></div>`:""}
+<p style="margin-bottom:6px"><b>${ser===1?"1 vuelta tranquila":ser+" "+lab}</b>${ser>1?" · descansa 45-60 s entre "+lab:""}</p><ul class="l">${r.ex.map(e=>`<li><b>${esc(e[0])}</b> · ${esc(e[1])}</li>`).join("")}</ul>
+<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn sm ${S.wk[TODAY()]===r.id?"ghost":""}" data-a="done:${r.id}">${S.wk[TODAY()]===r.id?"Completada ✓ (deshacer)":"Marcar como completada hoy"}</button>
+<a class="btn sm ghost" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${q}">${ic("ext")} Video de referencia</a></div>`}
+const rItem=(r,key)=>{const lock=r.mes>MONTH();return`<div class="item ${lock?"lock":""}"><button data-a="${lock?"noop":"open:"+key}"><span class="ic">${ic(lock?"lock":"play")}</span><span><div class="nm">${esc(r.n)}</div><div class="ds">${TIPOS[r.tipo]} · ${r.min} min · ${r.lug==="g"?"Gimnasio":"Casa"}${lock?" · se desbloquea en el mes "+r.mes:""}</div></span></button>${op===key&&!lock?`<div class="body">${routineHtml(r)}</div>`:""}</div>`};
+
+/* ============ VISTAS ============ */
+const chips=(t,items)=>`<div class="chips">${items.map(([k,l])=>`<button class="${sub[t]===k?"on":""}" data-a="sub:${t}:${k}">${l}</button>`).join("")}</div>`;
+const chk=(on,label,a)=>`<button class="chk ${on?"on":""}" data-a="${a}"><span class="ck">${on?ic("check"):""}</span><span class="t">${esc(label)}</span></button>`;
+function render(){timers.forEach(clearInterval);timers=[];window.speechSynthesis?.cancel?.();
+  if(!S.acc){root.innerHTML=vLogin();return}
+  if(!S.prof){root.innerHTML=vOnb();return}
+  const nav=[["hoy","Hoy","home"],["entrenar","Entrenar","dumb"],["nutri","Nutrición","leaf"],["belleza","Belleza","spark"],["mente","Mente","heart"]];
+  root.innerHTML=`<header><span class="logo">Bellas<b>Fit</b></span><button class="pill" data-a="tab:yo">${ic("user")} Mi perfil</button></header><main>${{hoy:vHoy,entrenar:vEntrenar,nutri:vNutri,belleza:vBelleza,mente:vMente,yo:vYo}[tab]()}</main>
+<nav>${nav.map(([k,l,i])=>`<button data-a="tab:${k}" class="${tab===k?"on":""}">${ic(i)}${l}</button>`).join("")}</nav>`}
+
+let lastEm="";
+function vLogin(){const demo=!CFG.API_URL;return`<div class="auth"><form class="auth-card" id="lf"><div class="brand">TU CLUB DE BIENESTAR</div><div class="logo">Bellas<b>Fit</b></div><div class="gold-line"></div>
+<p class="d">Ejercicio, nutrición, belleza y bienestar emocional pensados para ti.</p>
+<div class="field"><label>Correo con el que te suscribiste</label><input id="em" type="email" autocomplete="email" value="${esc(lastEm)}" required></div>
+${demo?`<small class="n" style="margin:0 0 10px;text-align:left">Versión de revisión: entra con cualquier correo.</small>`:""}
+<div class="err" id="er">${esc(loginMsg)}</div><button class="btn" ${busy?"disabled":""}>${busy?"VERIFICANDO...":"ENTRAR"}</button>
+${CFG.BUY_URL!=="#"?`<a class="btn ghost" href="${CFG.BUY_URL}" target="_blank" rel="noopener">SUSCRIBIRME</a>`:""}</form></div>`}
+function onbField(l,id,v,type="number",extra=""){return`<div class="field"><label>${l}</label><input id="${id}" type="${type}" inputmode="decimal" value="${esc(v??"")}" ${extra}></div>`}
+const sel=(id,opts,cur)=>`<select id="${id}">${opts.map((o,i)=>`<option value="${Array.isArray(o)?o[0]:i}" ${(Array.isArray(o)?o[0]:i)==cur?"selected":""}>${Array.isArray(o)?o[1]:o}</option>`).join("")}</select>`;
+function profForm(p={}){return`<div class="card"><h3 class="sec">Tus datos</h3><div class="grid2 keep" style="gap:0 10px">${onbField("Edad","pa",p.age)}${onbField("Peso (kg)","pw",p.w,"number",'step="0.1"')}${onbField("Altura (cm)","ph",p.h)}</div></div>
+<div class="card"><h3 class="sec">Tu entrenamiento</h3><div class="field"><label>Objetivo</label>${sel("pg",Object.entries(GOALS).map(([k,v])=>[k,v[0]]),p.goal||"tonificar")}</div>
+<div class="field"><label>Nivel</label>${sel("pl",LEVELS,p.level??0)}</div><div class="field"><label>Actividad actual</label>${sel("pc",ACTS,p.act??1)}</div>
+<div class="field"><label>Dónde entrenas</label>${sel("pp",[["casa","En casa"],["gym","En gimnasio"],["ambos","Ambos"]],p.place||"casa")}</div>
+<div class="grid2 keep" style="gap:0 10px"><div class="field"><label>Días por semana</label>${sel("pd",[[3,"3 días"],[4,"4 días"],[5,"5 días"],[6,"6 días"]],p.days||3)}</div></div></div>
+<div class="card"><h3 class="sec">Alimentación y cuidado</h3><div class="field"><label>Tipo de alimentación</label>${sel("pt",[["omni","Como de todo"],["veg","Vegetariana"]],p.diet||"omni")}</div>
+<div class="field"><label>Tipo de piel</label>${sel("ps",SKINS,p.skin??0)}</div>
+<button type="button" class="chk ${S.cyc.on?"on":""}" id="cycOpt" data-a="cycopt"><span class="ck">${S.cyc.on?ic("check"):""}</span><span class="t" style="text-decoration:none!important">Quiero activar el seguimiento del ciclo menstrual (opcional)</span></button></div>`}
+function readProf(){const g=i=>$("#"+i).value,n=i=>parseFloat(g(i));const p={age:n("pa"),w:n("pw"),h:n("ph"),goal:g("pg"),level:+g("pl"),act:+g("pc"),place:g("pp"),days:+g("pd"),diet:g("pt"),skin:+g("ps")};
+  return p.age>=18&&p.age<=100&&p.w>=35&&p.w<=250&&p.h>=130&&p.h<=220?p:null}
+function vOnb(){return`<div class="auth" style="align-items:flex-start"><form class="auth-card" id="pf" style="text-align:left;background:transparent;box-shadow:none;border:0;padding:10px"><div style="text-align:center"><div class="logo">Bellas<b>Fit</b></div><h3 class="serif" style="font-size:1.6rem;color:var(--rp-d)">Cuéntanos de ti</h3>
+<p class="d">Con estos datos calculamos tus calorías, tu agua y tu plan de entrenamiento. Se guardan solo en tu dispositivo. Los cálculos son orientativos y no sustituyen la consulta con un profesional de salud.</p></div>${profForm({})}<div class="err" id="er"></div><button class="btn">CREAR MI PLAN</button></form></div>`}
+
+function vHoy(){const k=TODAY(),c=calc(),p=S.prof,r=todayR(),w=S.water[k]||0,wg=waterG(),h=S.hab[k]||{},cy=cycInfo(),m=menu(k),ph=cy?PHASES[cy.ph]:null;
+  const hl=[["agua","Cumplí mi meta de agua"],["mov","Me moví hoy"],["comida","Comí equilibrado"],["sueno","Dormí bien"],["skin","Hice mi skincare"],["grat","Practiqué gratitud"],...S.custom.map((n,i)=>["c"+i,n])];
+  const done=hl.filter(x=>h[x[0]]).length;
+  const guide=S.guideOff?"":`<div class="card"><h3 class="sec">${ic("spark")} Guía rápida</h3><p class="sub" style="margin-bottom:6px">Abajo tienes 5 botones. Esto hace cada uno:</p><ul class="l">${GUIDE.map(g=>`<li><b>${g[0]}:</b> ${g[1]}</li>`).join("")}</ul><button class="btn sm" style="margin-top:10px" data-a="guideoff">Entendido</button></div>`;
+  return`<div class="card hero"><h2>Hola, ${esc(S.name||"bella")}</h2><div class="sub">${fdate(k)} · Mes ${MONTH()} de tu club</div>
+<div class="g3" style="margin-top:12px"><div class="m"><div class="big">${c.kcal}</div><small>kcal hoy</small></div><div class="m"><div class="big">${w}/${wg}</div><small>vasos de agua</small></div><div class="m"><div class="big">${done}/${hl.length}</div><small>hábitos</small></div></div></div>
+${guide}<div class="card"><h3 class="sec">${ic("dumb")} Tu entrenamiento de hoy</h3>${r?`<div class="item" style="margin:0">${rItem(r,"hoy").replace('class="item "','class="item" style="margin:0"')}</div>`:`<p>Hoy es día de descanso activo: camina 20-30 minutos y estira. ${ic("heart")}</p>`}</div>
+${ph?`<div class="card"><h3 class="sec">${ic("heart")} Tu ciclo · ${ph[0]} (día ${cy.day})</h3><p style="font-size:.92rem">${ph[1]}</p></div>`:""}
+<div class="card"><h3 class="sec">${ic("leaf")} Tu menú de hoy</h3><ul class="l">${m.map(x=>`<li><b>${x.l}:</b> ${esc(x.r[0])} · ${x.kcal} kcal</li>`).join("")}</ul><button class="btn sm ghost" style="margin-top:8px" data-a="go:nutri:menu">Ver detalle y recetas</button></div>
+<div class="card"><h3 class="sec">${ic("droplet")} Agua</h3><div class="cnt"><button data-a="water:-1">−</button><b class="big">${w} / ${wg}</b><button data-a="water:1">+</button></div><div class="bar"><i style="width:${Math.min(100,w/wg*100)}%"></i></div><small class="n" style="text-align:center">Meta: ${num(wg*.25)} L (vasos de 250 ml)</small></div>
+<div class="card"><h3 class="sec">${ic("check")} Hábitos de hoy</h3>${hl.map(x=>chk(h[x[0]],x[1],"hab:"+x[0])).join("")}</div>
+<div class="card"><h3 class="sec">${ic("heart")} ¿Cómo te sientes?</h3>${moodRow(k)}</div>
+<div class="card"><h4>Tip de la semana</h4><p>${TIPS[WEEKN()%TIPS.length]}</p></div>
+<div class="card"><p class="quote">${FRASES[Math.floor(pd(k)/864e5)%FRASES.length]}</p></div>`}
+const MOODS=["😔","😐","🙂","😊","🤩"];
+const moodRow=k=>`<div class="moods">${MOODS.map((m,i)=>`<button data-a="mood:${i}:${k}" class="${(S.mood[k]||{}).m===i?"on":""}">${m}</button>`).join("")}</div>`;
+
+function vEntrenar(){let b="";const s=sub.entrenar;
+  if(s==="plan"){const wp=weekPlan();b=`<div class="card"><p class="sub">Plan de la semana para tu objetivo: <b>${GOALS[S.prof.goal][0]}</b>, nivel ${LEVELS[S.prof.level].toLowerCase()}, ${S.prof.days} días.</p></div>`+wp.map((x,i)=>`<div style="margin-bottom:4px"><b class="serif" style="color:var(--rp-d)">${fdate(x.d)}${x.d===TODAY()?" · Hoy":""}</b></div>${x.r?rItem(x.r,"w"+i):`<div class="card" style="padding:12px;font-size:.9rem">Descanso activo: caminata y estiramientos.</div>`}`).join("")}
+  else if(s==="lib"){const L=LIB.filter(r=>(!filt.t||r.tipo===filt.t)&&(!filt.l||r.lug===filt.l));
+    b=`<div class="grid2 keep"><div class="field"><select id="ft" data-f="t"><option value="">Todos los tipos</option>${Object.entries(TIPOS).map(([k,v])=>`<option value="${k}" ${filt.t===k?"selected":""}>${v}</option>`).join("")}</select></div><div class="field"><select id="fl" data-f="l"><option value="">Casa y gimnasio</option><option value="c" ${filt.l==="c"?"selected":""}>Casa</option><option value="g" ${filt.l==="g"?"selected":""}>Gimnasio</option></select></div></div>
+    <p class="sub" style="margin-bottom:10px">${LIB.filter(r=>r.mes<=MONTH()).length} de ${LIB.length} rutinas desbloqueadas. Cada mes se suman nuevas.</p>`+L.map(r=>rItem(r,"l"+r.id)).join("")}
+  else{const mi=((MONTH()-1)%6),M=MONTHS[mi],cw=Math.min(3,Math.floor((daysIn()%30)/7));
+    b=`<div class="card hero"><h2>${M[0]}</h2><div class="sub">Reto del mes ${MONTH()} · ${M[1]}</div></div>`+M[2].map((w,i)=>{const key=MONTH()+"-"+i,a=S.ch[key]||[];return`<div class="card" ${i===cw?'style="border-color:var(--rp)"':""}><h4>Semana ${i+1}: ${w[0]} ${i===cw?'<span class="tag au">Esta semana</span>':""}</h4><p class="sub">${w[1]}</p>
+    <div class="mg" style="grid-template-columns:repeat(7,1fr);margin-top:8px">${Array.from({length:7},(_,d)=>`<button data-a="ch:${key}:${d}" style="background:${a[d]?"var(--rp)":"var(--rc)"};color:${a[d]?"#fff":"var(--tx)"};border-radius:10px;aspect-ratio:1;font-size:.85rem">${a[d]?"✓":d+1}</button>`).join("")}</div></div>`}).join("")}
+  return`<h3 class="sec">${ic("dumb")} Entrenar</h3>${chips("entrenar",[["plan","Mi semana"],["lib","Biblioteca"],["reto","Reto del mes"]])}${hint("entrenar")}${b}`}
+
+function waterCal(){const t=new Date(),y=t.getFullYear(),m=t.getMonth(),first=(new Date(y,m,1).getDay()+6)%7,n=new Date(y,m+1,0).getDate(),wg=waterG();let cells=Array(first).fill("<span></span>");
+  for(let d=1;d<=n;d++){const k=dk(new Date(y,m,d)),v=S.water[k]||0,a=Math.min(1,v/wg);cells.push(`<b class="${k===TODAY()?"t":""}" style="background:rgba(216,160,168,${v?.18+a*.8:.12});color:${a>.6?"#fff":"var(--tx)"}">${d}</b>`)}
+  return`<div class="mg" style="margin-bottom:6px">${["L","M","X","J","V","S","D"].map(x=>`<span>${x}</span>`).join("")}${cells.join("")}</div><small class="n">Más oscuro = más vasos. Meta: ${wg} vasos.</small>`}
+function vNutri(){const s=sub.nutri,k=TODAY();let b="";
+  if(s==="menu"){const c=calc(),m=menu(k);b=`<div class="card hero"><h3 class="sec" style="margin:0">Tu meta de hoy</h3><div class="g3" style="margin-top:10px"><div class="m"><div class="big">${c.kcal}</div><small>kcal</small></div><div class="m"><div class="big">${c.prot} g</div><small>proteína</small></div><div class="m"><div class="big">${c.carb} g</div><small>carbohidratos</small></div></div><small class="n">Grasas ≈ ${c.fat} g · Gasto estimado ${c.tdee} kcal. Calculado con tu edad, peso, altura, actividad y objetivo. Es una referencia, no un plan médico.</small></div>`
+    +m.map((x,i)=>`<div class="item"><button data-a="open:m${i}"><span class="ic">${ic("leaf")}</span><span><div class="nm">${x.l}: ${esc(x.r[0])}</div><div class="ds">${x.kcal} kcal · ${x.prot} g proteína · porción ×${x.sc}</div></span></button>${op==="m"+i?`<div class="body"><p><b>Ingredientes:</b> ${esc(x.r[4])}</p>${x.r[5]?`<p style="margin-top:6px"><b>Preparación:</b> ${esc(x.r[5])}</p>`:""}${subsHtml(x.r[4])}<small class="n">Ajusta la porción para llegar a las ${x.kcal} kcal. Valores aproximados.</small></div>`:""}</div>`).join("")+`<div class="card"><h4>Comida del día</h4><p class="sub">Sube una foto de tu comida en la pestaña Fotos.</p></div>`}
+  else if(s==="rec"){b=[["b","Desayunos"],["l","Almuerzos"],["d","Cenas"],["s","Snacks"]].map(([t,l])=>`<h4 style="margin:6px 0">${l}</h4>`+REC[t].filter(r=>S.prof.diet!=="veg"||r[3]).map((r,i)=>`<div class="item"><button data-a="open:r${t}${i}"><span class="ic">${ic("leaf")}</span><span><div class="nm">${esc(r[0])}</div><div class="ds">${r[1]} kcal · ${r[2]} g proteína ${r[3]?"· vegetariana":""}</div></span></button>${op==="r"+t+i?`<div class="body"><p><b>Ingredientes:</b> ${esc(r[4])}</p>${r[5]?`<p style="margin-top:6px"><b>Preparación:</b> ${esc(r[5])}</p>`:""}${subsHtml(r[4])}</div>`:""}</div>`).join("")).join("")}
+  else if(s==="shop"){const map={};for(let i=0;i<7;i++)menu(addD(k,i)).forEach(x=>x.r[4].split(",").forEach(n=>{n=n.trim();map[n]=(map[n]||0)+1}));
+    b=`<div class="card"><h3 class="sec">${ic("leaf")} Lista de compras (próximos 7 días)</h3><p class="sub" style="margin-bottom:8px">Basada en tu menú diario. El número indica en cuántas comidas se usa.</p>${Object.keys(map).sort().map(n=>chk(S.shop[n],n+" (×"+map[n]+")","shop:"+n)).join("")}<button class="btn sm ghost" style="margin-top:10px" data-a="shopreset">Limpiar marcas</button></div>`}
+  else if(s==="agua"){const w=S.water[k]||0,wg=waterG();b=`<div class="card"><h3 class="sec">${ic("droplet")} Agua de hoy</h3><div class="cnt"><button data-a="water:-1">−</button><b class="big">${w} / ${wg}</b><button data-a="water:1">+</button></div><div class="bar"><i style="width:${Math.min(100,w/wg*100)}%"></i></div></div><div class="card"><h3 class="sec">Calendario de agua · ${MESES[new Date().getMonth()]}</h3>${waterCal()}</div>`}
+  else if(s==="bat"){b=BATIDOS.filter(x=>S.prof.diet!=="veg"||1).map((x,i)=>`<div class="item"><button data-a="open:b${i}"><span class="ic">${ic("droplet")}</span><span><div class="nm">${x[0]}</div><div class="ds">${x[1]} kcal · ${x[2]} g proteína · ${x[4]}</div></span></button>${op==="b"+i?`<div class="body"><p><b>Ingredientes:</b> ${x[3]}</p><p style="margin-top:6px"><b>Preparación:</b> Licúa todo con hielo hasta que quede cremoso.</p>${subsHtml(x[3])}<small class="n">Valores aproximados. Para menos calorías usa agua o bebida sin azúcar.</small></div>`:""}</div>`).join("")}
+  else if(s==="sub"){b=`<div class="card"><h3 class="sec">Cambios de ingredientes</h3><ul class="l">${SUBS.map(x=>`<li><b>${x[0]}</b> → ${x[1]}</li>`).join("")}</ul></div>`}
+  else{b=photosView("food","Fotos de mis comidas")}
+  return`<h3 class="sec">${ic("leaf")} Nutrición</h3>${chips("nutri",[["menu","Hoy"],["rec","Recetas"],["bat","Batidos"],["sub","Cambios"],["shop","Compras"],["agua","Agua"],["foto","Fotos"]])}${hint("nutri")}${b}`}
+
+function photosView(kind,title){const list=PH[kind].slice().reverse();
+  return`<div class="card"><h3 class="sec">${ic("camera")} ${title}</h3><label class="btn sm" style="cursor:pointer">Subir foto<input type="file" accept="image/*" data-ph="${kind}" hidden></label>${memFull?`<p class="err">Memoria llena: borra fotos antiguas para guardar nuevas.</p>`:""}
+<small class="n">Tus fotos se guardan solo en este dispositivo.</small></div>${list.length?`<div class="pgrid">${list.map(x=>`<div><div class="ph"><img src="${x.src}" alt=""><small>${fdate(x.d)}</small></div><button class="link" data-a="delph:${kind}:${x.id}">Borrar</button></div>`).join("")}</div>`:`<div class="card lockbox">Aún no hay fotos.</div>`}`}
+
+function skinCard(k){const a=S.skin[k]||{};return`<div class="card"><h3 class="sec">Mañana</h3>${SKINSTEPS.am.map(s=>`<p style="padding:6px 0;border-bottom:1px dashed var(--rs)"><b>${s[0]}</b><br><small class="n" style="margin:0">${s[1]}</small></p>`).join("")}${chk(a.am,"Hice mi rutina de mañana","skin:am:"+k)}</div>
+<div class="card"><h3 class="sec">Noche</h3>${SKINSTEPS.pm.map(s=>`<p style="padding:6px 0;border-bottom:1px dashed var(--rs)"><b>${s[0]}</b><br><small class="n" style="margin:0">${s[1]}</small></p>`).join("")}${chk(a.pm,"Hice mi rutina de noche","skin:pm:"+k)}</div>`}
+function vBelleza(){const s=sub.belleza,k=TODAY();let b="";
+  if(s==="rostro")b=`<div class="card"><h4>Tu tipo de piel: ${SKINS[S.prof.skin]}</h4><p class="sub">${SKINTIPS[SKINS[S.prof.skin]]}</p></div>`+skinCard(k)+`<div class="card"><h4>Videos de referencia</h4>${ytb("rutina facial de mañana skincare paso a paso","Rutina de mañana")}${ytb("rutina facial de noche skincare paso a paso","Rutina de noche")}${ytb("masaje facial gua sha en casa","Masaje facial")}</div>`;
+  else if(s==="cal"){const t=pd(k),dow=t.getDay(),mon=addD(k,-((dow+6)%7));b=`<div class="card"><p class="sub">Tu semana de skincare. Marca mañana (M) y noche (N).</p>${ytb("mascarillas faciales caseras y cómo aplicarlas","Videos de mascarillas")}${ytb("masaje facial gua sha en casa","Masaje facial")}</div>`+Array.from({length:7},(_,i)=>{const d=addD(mon,i),w=pd(d).getDay(),a=S.skin[d]||{};return`<div class="card" ${d===k?'style="border-color:var(--rp)"':""}><div class="row"><b class="serif" style="color:var(--rp-d);font-size:1.15rem">${fdate(d)}</b><span><button class="pill" style="${a.am?"background:var(--rp);color:#fff":""}" data-a="skin:am:${d}">M</button> <button class="pill" style="${a.pm?"background:var(--rp);color:#fff":""}" data-a="skin:pm:${d}">N</button></span></div><p class="sub">${SKINCAL[w][1]}</p></div>`}).join("")}
+  else if(s==="cuerpo")b=BODY.map(x=>`<div class="card"><h4>${x[0]}</h4><ul class="l">${x[1].map(y=>`<li>${y}</li>`).join("")}</ul>${ytb(x[0]+" paso a paso en casa")}</div>`).join("");
+  else if(s==="cabello")b=`<div class="card"><h3 class="sec">Cuidado del cabello</h3><ul class="l">${HAIR.map(y=>`<li>${y}</li>`).join("")}</ul>${ytb("rutina de cuidado del cabello en casa","Rutina de cabello")}${ytb("masaje del cuero cabelludo para crecimiento","Masaje de cuero cabelludo")}${ytb("mascarilla hidratante casera para el cabello","Mascarilla")}</div>`;
+  else if(s==="relax")b=RELAX.map(x=>`<div class="card"><h4>${x[0]}</h4><ul class="l">${x[1].map(y=>`<li>${y}</li>`).join("")}</ul>${ytb(x[0]+" para relajarte")}</div>`).join("");
+  else{const wk="w"+Math.floor(pd(k)/864e5/7),a=S.care[wk]||{};b=`<div class="card"><h3 class="sec">Menú de autocuidado de la semana</h3><p class="sub" style="margin-bottom:6px">Elige y marca lo que hagas por ti esta semana.</p>${AUTOCARE.map((x,i)=>chk(a[i],x,"care:"+wk+":"+i)).join("")}</div>`}
+  return`<h3 class="sec">${ic("spark")} Belleza y cuidado</h3>${chips("belleza",[["rostro","Rostro"],["cal","Calendario"],["cuerpo","Cuerpo"],["cabello","Cabello"],["relax","Relajación"],["auto","Autocuidado"]])}${hint("belleza")}${b}`}
+
+function vMente(){const s=sub.mente,k=TODAY();let b="";
+  if(s==="animo"){const days=Array.from({length:14},(_,i)=>addD(k,i-13)),m=S.mood[k]||{};b=`<div class="card"><h3 class="sec">¿Cómo te sientes hoy?</h3>${moodRow(k)}<textarea class="ta" data-i="moodn" placeholder="¿Qué influyó en tu ánimo hoy? (opcional)">${esc(m.n||"")}</textarea></div>
+  <div class="card"><h4>Últimos 14 días</h4><div style="display:flex;gap:4px;justify-content:space-between;font-size:1.3rem;margin-top:8px">${days.map(d=>`<span title="${d}" style="text-align:center">${S.mood[d]&&S.mood[d].m!=null?MOODS[S.mood[d].m]:"·"}</span>`).join("")}</div></div><div class="card"><p class="quote">${FRASES[Math.floor(pd(k)/864e5)%FRASES.length]}</p></div>`}
+  else if(s==="grat"){const g=S.grat[k]||["","",""];b=`<div class="card"><h3 class="sec">Diario de gratitud</h3><p class="sub" style="margin-bottom:8px">Hoy agradezco...</p>${[0,1,2].map(i=>`<div class="field"><input data-i="grat${i}" value="${esc(g[i]||"")}" placeholder="${i+1}."></div>`).join("")}<small class="n">Se guarda solo.</small></div>`+recent(S.grat,"Gratitudes anteriores",v=>v.filter(Boolean).join(" · "))}
+  else if(s==="diario"){b=`<div class="card"><h3 class="sec">Mi diario · ${fdate(sday||k)}</h3><div class="dsel"><button data-a="sday:-1">${ic("left")}</button><button data-a="sday:1">${ic("right")}</button></div><textarea class="ta" style="min-height:180px" data-i="diary" placeholder="Escribe lo que quieras. Es solo para ti.">${esc(S.diary[sday||k]||"")}</textarea><small class="n">Se guarda solo.</small></div>`+recent(S.diary,"Entradas anteriores",v=>v)}
+  else if(s==="resp"){b=BREATH.map((x,i)=>`<div class="card"><h4>${x[0]}</h4><p class="sub">${x[2]}</p><div id="bz${i}"></div><button class="btn sm" data-a="breath:${i}">Comenzar</button></div>`).join("")}
+  else if(s==="med"){b=MEDS.map((x,i)=>`<div class="card"><h4>${x[0]}</h4><p class="sub">${Math.round(x[1].reduce((a,y)=>a+y[1],0)/60)} min aprox.</p><div id="mz${i}" style="margin:8px 0;font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--rp-d)"></div><button class="btn sm" data-a="med:${i}">Comenzar</button> <button class="btn sm ghost" data-a="medstop">Detener</button></div>`).join("")+`<small class="n">Se leen en voz alta si tu navegador lo permite.</small>`}
+  else if(s==="esti"){const i=Math.floor(pd(k)/864e5)%ESTEEM.length;b=`<div class="card hero"><h3 class="sec">Actividad de autoestima de hoy</h3><p style="font-size:1.05rem">${ESTEEM[i]}</p></div><div class="card"><textarea class="ta" data-i="est" placeholder="Escribe tu respuesta...">${esc(S.est[k]||"")}</textarea><small class="n">Se guarda solo.</small></div>`+recent(S.est,"Mis respuestas",v=>v)}
+  else b=vCiclo();
+  return`<h3 class="sec">${ic("heart")} Bienestar emocional</h3>${chips("mente",[["animo","Ánimo"],["grat","Gratitud"],["diario","Diario"],["resp","Respirar"],["med","Meditar"],["esti","Autoestima"],["ciclo","Ciclo"]])}${hint("mente")}${b}`}
+function recent(obj,title,fmt){const ks=Object.keys(obj).filter(k=>{const v=obj[k];return Array.isArray(v)?v.some(Boolean):v}).sort().reverse().slice(0,10);
+  return ks.length?`<div class="card"><h4>${title}</h4>${ks.map(k=>`<p style="padding:7px 0;border-bottom:1px dashed var(--rs);font-size:.9rem"><b>${fdate(k)}</b><br><span class="sub">${esc(String(fmt(obj[k])).slice(0,140))}</span></p>`).join("")}</div>`:""}
+function vCiclo(){const c=S.cyc;if(!c.on)return`<div class="card lockbox"><p>El seguimiento del ciclo es opcional.</p><button class="btn sm" style="margin-top:10px" data-a="cycon">Activar seguimiento</button></div>`;
+  const i=cycInfo(),k=TODAY(),sy=c.sym[k]||[];
+  return`<div class="card hero"><h3 class="sec">Tu ciclo</h3>${i?`<p><b>Día ${i.day}</b> · fase ${PHASES[i.ph][0].toLowerCase()}</p><p class="sub">${PHASES[i.ph][1]}</p><p style="margin-top:8px">${i.late?"Tu período lleva retraso respecto a lo esperado. Registra la fecha cuando llegue.":`Próximo período estimado: <b>${fdate(i.next)}</b> (en ${i.inDays} días).`}</p>`:`<p>Registra la fecha de inicio de tu último período para empezar.</p>`}</div>
+<div class="card"><button class="btn" data-a="period">Mi período empezó hoy</button><div class="grid2 keep" style="gap:0 10px;margin-top:12px"><div class="field"><label>Duración del ciclo (días)</label><input type="number" data-i="clen" value="${c.len}"></div><div class="field"><label>Duración del período (días)</label><input type="number" data-i="cdur" value="${c.dur}"></div></div>
+${c.starts.length?`<small class="n">Registros: ${[...c.starts].sort().slice(-6).map(fdate).join(", ")}</small>`:""}</div>
+<div class="card"><h3 class="sec">Síntomas de hoy</h3><div style="display:flex;flex-wrap:wrap;gap:8px">${SYMS.map(x=>`<button class="pill" style="${sy.includes(x)?"background:var(--rp);color:#fff":""}" data-a="sym:${x}">${x}</button>`).join("")}</div><h4 style="margin-top:14px">Ánimo</h4>${moodRow(k)}</div>
+<div class="card"><small class="n" style="margin:0">Las fases son estimaciones y cada cuerpo es distinto. Si tu ciclo es muy irregular, doloroso o ausente, consulta a un profesional de salud.</small></div>`}
+
+function vYo(){const s=sub.yo;let b="";
+  if(s==="medidas"){const m=S.meas,f=m[0],l=m[m.length-1];const W=300,H=90;let chart="";
+    if(m.length>1){const ws=m.map(x=>x.w),mn=Math.min(...ws)-1,mx=Math.max(...ws)+1,pts=m.map((x,i)=>[(i/(m.length-1)*W).toFixed(1),(H-(x.w-mn)/(mx-mn)*H).toFixed(1)]);
+      chart=`<svg viewBox="-6 -6 ${W+12} ${H+12}" style="width:100%;height:auto;stroke:none"><polyline points="${pts.map(p=>p.join(",")).join(" ")}" fill="none" stroke="#c0838d" stroke-width="2"/>${pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="#C6A36A"/>`).join("")}</svg><small class="n">Peso: de ${mn+1} a ${mx-1} kg</small>`}
+    b=`<div class="card"><h3 class="sec">Mis medidas</h3>${m.length?`<div style="overflow-x:auto"><table class="mt"><tr><th></th><th>Inicio</th><th>Actual</th><th>Cambio</th></tr>${[["w","Peso","kg"],["waist","Cintura","cm"],["hip","Cadera","cm"],["thigh","Muslo","cm"],["arm","Brazo","cm"]].map(([x,n,u])=>f[x]?`<tr><td>${n}</td><td>${f[x]} ${u}</td><td>${l[x]||"–"} ${l[x]?u:""}</td><td><b>${l[x]&&m.length>1?(l[x]-f[x]>0?"+":"")+num(l[x]-f[x]):"–"}</b></td></tr>`:"").join("")}</table></div>${chart}`:`<p class="sub">Aún no hay medidas.</p>`}</div>
+    <form class="card" id="mf"><h3 class="sec">Agregar medidas de hoy</h3><div class="grid2 keep" style="gap:0 10px">${onbField("Peso (kg)","mw","",'number','step="0.1"')}${onbField("Cintura (cm)","mwa","")}${onbField("Cadera (cm)","mhi","")}${onbField("Muslo (cm)","mth","")}${onbField("Brazo (cm)","mar","")}</div><button class="btn sm">Guardar</button></form>`}
+  else if(s==="fotos")b=photosView("prog","Mis fotos de progreso");
+  else if(s==="habitos"){const days=Array.from({length:35},(_,i)=>addD(TODAY(),i-34)),tot=7;b=`<div class="card"><h3 class="sec">Constancia (últimos 35 días)</h3><p class="sub" style="margin-bottom:8px">Más oscuro = más hábitos cumplidos.</p><div class="mg">${days.map(d=>{const n=Object.values(S.hab[d]||{}).filter(Boolean).length,a=Math.min(1,n/6);return`<b style="background:rgba(216,160,168,${n?.2+a*.8:.12});color:${a>.6?"#fff":"var(--tx)"}">${pd(d).getDate()}</b>`}).join("")}</div></div>
+    <div class="card"><h4>Agregar un hábito propio</h4><div style="display:flex;gap:8px"><input class="ta" style="min-height:0;padding:10px 14px;border-radius:22px" id="newh" placeholder="Ej.: Tomar vitaminas"><button class="btn sm" data-a="addh">Añadir</button></div>${S.custom.map((n,i)=>`<p class="row" style="padding:6px 0"><span>${esc(n)}</span><button class="link" style="margin:0" data-a="delh:${i}">Quitar</button></p>`).join("")}</div>`}
+  else b=`<form id="pf" style="margin-bottom:14px"><div class="field"><label>Tu nombre</label><input id="pn" value="${esc(S.name||"")}"></div>${profForm(S.prof)}<div class="err" id="er"></div><button class="btn">GUARDAR CAMBIOS</button></form>
+  <div class="card"><p class="sub">Cuenta: ${esc(S.acc.email)}<br>Miembro desde ${fdate(since())} · Mes ${MONTH()}</p><button class="btn ghost" style="margin-top:10px" data-a="logout">CERRAR SESIÓN</button></div>`;
+  return`<h3 class="sec">${ic("user")} Mi perfil</h3>${chips("yo",[["medidas","Medidas"],["fotos","Fotos"],["habitos","Hábitos"],["perfil","Mis datos"]])}${hint("yo")}${b}`}
+
+/* ============ INTERACCIONES ============ */
+function cycUpdate(){}
+function readPhoto(file,kind){const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const s=Math.min(1,520/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=im.width*s;c.height=im.height*s;c.getContext("2d").drawImage(im,0,0,c.width,c.height);
+  PH[kind].push({id:Date.now().toString(36),d:TODAY(),src:c.toDataURL("image/jpeg",.6)});savePh();if(memFull)PH[kind].pop();render()};im.src=fr.result};fr.readAsDataURL(file)}
+function speak(t){try{const u=new SpeechSynthesisUtterance(t);u.lang="es-ES";u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function startBreath(i){timers.forEach(clearInterval);timers=[];const[nm,pat]=BREATH[i],ph=["Inhala","Sostén","Exhala","Sostén"],box=$("#bz"+i);let st=0,left=pat[0]||1,cycles=0;
+  box.innerHTML=`<div class="circle" id="bc"><span id="bt"></span></div>`;const el=$("#bc"),tx=$("#bt");
+  const show=()=>{while(!pat[st]){st=(st+1)%4}tx.textContent=ph[st]+" "+left;el.style.transform=st===0?"scale(1.3)":st===2?"scale(.8)":el.style.transform};
+  left=pat[st];show();el.style.transitionDuration=pat[0]+"s";
+  timers.push(setInterval(()=>{left--;if(left<=0){do{st=(st+1)%4}while(!pat[st]);if(st===0)cycles++;left=pat[st];el.style.transitionDuration=pat[st]+"s";if(cycles>=6){timers.forEach(clearInterval);tx.textContent="Muy bien ✓";return}}show()},1000))}
+function startMed(i){timers.forEach(clearInterval);timers=[];const steps=MEDS[i][1],box=$("#mz"+i);let n=0,left=steps[0][1];const go=()=>{box.textContent=steps[n][0];speak(steps[n][0])};go();
+  timers.push(setInterval(()=>{left--;if(left<=0){n++;if(n>=steps.length){timers.forEach(clearInterval);box.textContent="Listo ✓ Gracias por regalarte este momento.";return}left=steps[n][1];go()}},1000))}
+
+const LOGMSG={inactive:"No encontramos una suscripción activa con este correo. Usa el mismo correo de tu compra en Hotmart.",devices:"Este correo ya se usa en 3 dispositivos. Escríbenos para liberar uno."};
+const devId=()=>{if(!S.dev){S.dev=(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2));save()}return S.dev};
+async function login(){const em=$("#em").value.trim().toLowerCase();if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){loginMsg="Escribe un correo válido.";return render()}
+  lastEm=em;busy=true;loginMsg="";render();
+  try{if(!CFG.API_URL)S.acc={email:em,since:new Date().toISOString(),at:Date.now()};
+  else{const r=await fetch(CFG.API_URL+"/access?email="+encodeURIComponent(em)+"&device="+encodeURIComponent(devId())),j=await r.json();
+    if(j.ok)S.acc={email:em,since:j.since||new Date().toISOString(),at:Date.now()};else loginMsg=LOGMSG[j.reason]||"No pudimos entrar. Inténtalo de nuevo."}}
+  catch(e){loginMsg="No pudimos verificar tu suscripción. Revisa tu conexión e inténtalo de nuevo."}
+  busy=false;save();render()}
+async function recheck(){if(!CFG.API_URL||!S.acc)return;try{const r=await fetch(CFG.API_URL+"/access?email="+encodeURIComponent(S.acc.email)+"&device="+encodeURIComponent(devId())),j=await r.json();
+  if(j.ok){S.acc.at=Date.now();if(j.since)S.acc.since=j.since;save()}else{S.acc=null;loginMsg=j.reason==="devices"?LOGMSG.devices:"Tu suscripción no está activa. Renuévala para seguir entrando.";save();render()}}
+  catch(e){if(Date.now()-(S.acc.at||0)>7*864e5){S.acc=null;loginMsg="Necesitamos verificar tu suscripción: conéctate a internet.";save();render()}}}
+
+function act(a,el){const [c,...r]=a.split(":");const k=TODAY();
+  switch(c){
+  case"tab":tab=r[0];op=null;render();scrollTo(0,0);break;
+  case"sub":sub[r[0]]=r[1];op=null;render();break;
+  case"go":tab=r[0];sub[r[0]]=r[1];op=null;render();scrollTo(0,0);break;
+  case"open":op=op===r[0]?null:r[0];render();break;
+  case"done":S.wk[k]=S.wk[k]===r[0]?null:r[0];save();render();break;
+  case"water":S.water[k]=Math.max(0,(S.water[k]||0)+ +r[0]);save();render();break;
+  case"hab":{const h=S.hab[k]=S.hab[k]||{};h[r[0]]=!h[r[0]];save();render();break}
+  case"mood":{const d=r[1];S.mood[d]=Object.assign(S.mood[d]||{},{m:+r[0]});save();render();break}
+  case"ch":{const a=S.ch[r[0]]=S.ch[r[0]]||[];a[+r[1]]=!a[+r[1]];save();render();break}
+  case"shop":S.shop[r.join(":")]=!S.shop[r.join(":")];save();render();break;
+  case"shopreset":S.shop={};save();render();break;
+  case"skin":{const d=r[1],o=S.skin[d]=S.skin[d]||{};o[r[0]]=!o[r[0]];save();render();break}
+  case"care":{const o=S.care[r[0]]=S.care[r[0]]||{};o[r[1]]=!o[r[1]];save();render();break}
+  case"breath":startBreath(+r[0]);break;
+  case"med":startMed(+r[0]);break;
+  case"medstop":timers.forEach(clearInterval);try{speechSynthesis.cancel()}catch(e){}break;
+  case"sday":{const n=(sday||k);const t=addD(n,+r[0]);if(dd(t,k)>=0)sday=t;render();break}
+  case"cycopt":S.cyc.on=!S.cyc.on;save();el.classList.toggle("on",S.cyc.on);el.querySelector(".ck").innerHTML=S.cyc.on?ic("check"):"";break;
+  case"cycon":S.cyc.on=true;save();render();break;
+  case"period":if(!S.cyc.starts.includes(k))S.cyc.starts.push(k);save();render();break;
+  case"sym":{const s=S.cyc.sym[k]=S.cyc.sym[k]||[],x=r.join(":"),i=s.indexOf(x);i>=0?s.splice(i,1):s.push(x);save();render();break}
+  case"addh":{const v=$("#newh").value.trim();if(v){S.custom.push(v);save();render()}break}
+  case"delh":S.custom.splice(+r[0],1);save();render();break;
+  case"delph":PH[r[0]]=PH[r[0]].filter(x=>x.id!==r[1]);savePh();render();break;
+  case"guideoff":S.guideOff=true;save();render();break;
+  case"logout":S.acc=null;save();render();break;
+  }}
+root.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(b&&b.dataset.a!=="noop")act(b.dataset.a,b)});
+root.addEventListener("input",e=>{const i=e.target.dataset.i;if(!i)return;const k=TODAY(),v=e.target.value;
+  if(i==="moodn"){S.mood[k]=Object.assign(S.mood[k]||{},{n:v})}else if(i.startsWith("grat")){const g=S.grat[k]=S.grat[k]||["","",""];g[+i[4]]=v}
+  else if(i==="diary")S.diary[sday||k]=v;else if(i==="est")S.est[k]=v;else if(i==="clen")S.cyc.len=Math.max(21,Math.min(45,+v||28));else if(i==="cdur")S.cyc.dur=Math.max(2,Math.min(10,+v||5));save()});
+root.addEventListener("change",e=>{const t=e.target;if(t.dataset.f){filt[t.dataset.f]=t.value;render()}if(t.dataset.ph&&t.files[0])readPhoto(t.files[0],t.dataset.ph)});
+root.addEventListener("submit",async e=>{e.preventDefault();const id=e.target.id;
+  if(id==="lf")login();
+  else if(id==="pf"){const p=readProf();if(!p)return $("#er").textContent="Revisa edad (18+), peso, altura y que todos los campos estén completos.";if($("#pn"))S.name=$("#pn").value.trim();else if(!S.name)S.name=S.acc.email.split("@")[0];
+    S.prof=p;if(!S.meas.length)S.meas.push({d:TODAY(),w:p.w});save();tab="hoy";render()}
+  else if(id==="mf"){const g=i=>parseFloat($("#"+i).value)||"",m={d:TODAY(),w:g("mw"),waist:g("mwa"),hip:g("mhi"),thigh:g("mth"),arm:g("mar")};if(m.w){S.meas.push(m);if(S.prof)S.prof.w=m.w;save();render()}}});
+render();recheck();
+</script>
+</body>
+</html>
